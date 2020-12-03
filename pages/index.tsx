@@ -1,12 +1,13 @@
 import Head from 'next/head'
 import { FunctionComponent } from 'react'
+import { Button } from '../components/Button/Button'
 
-const Home: FunctionComponent = () => (
+export const Home: FunctionComponent = () => (
   <>
     <Head>
       <title>Tella Web</title>
     </Head>
-    <h1>Hola</h1>
+    <Button>Hi!</Button>
   </>
 )
 

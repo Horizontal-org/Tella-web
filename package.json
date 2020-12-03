@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint './**/*.{ts,tsx}'",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "storybook": "start-storybook -p 9011 -c ./.storybook/"
   },
   "husky": {
     "hooks": {
@@ -22,6 +23,8 @@
     ]
   },
   "dependencies": {
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^6.1.9",
     "autoprefixer": "^10.0.4",
     "classnames": "^2.2.6",
     "next": "10.0.3",
@@ -39,9 +42,13 @@
     "@types/react": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
+    "css-loader": "^5.0.1",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0",
     "eslint": "^7.14.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^6.15.0",
+    "eslint-import-resolver-typescript": "^2.3.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.1.4",
