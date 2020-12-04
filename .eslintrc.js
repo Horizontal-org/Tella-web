@@ -3,6 +3,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'airbnb',
+    'plugin:cypress/recommended',
     'prettier',
     'prettier/react',
     'prettier/@typescript-eslint',
