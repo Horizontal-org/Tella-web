@@ -1,23 +1,53 @@
+import { CSSProperties } from 'react'
 import { storiesOf } from '@storybook/react'
 import { MdCloudUpload } from '@react-icons/all-files/md/MdCloudUpload'
 import { MdPersonOutline } from '@react-icons/all-files/md/MdPersonOutline'
 import { MdSettings } from '@react-icons/all-files/md/MdSettings'
+import { MdDelete } from '@react-icons/all-files/md/MdDelete'
 
 import { NavButton } from './NavButton'
 
 const menuExample = [
-  { title: 'Reports', icon: <MdCloudUpload /> },
-  { title: 'Users', icon: <MdPersonOutline /> },
-  { title: 'Administration', icon: <MdSettings /> },
+  { text: 'Reports', icon: <MdCloudUpload />, selected: true },
+  { text: 'Users', icon: <MdPersonOutline /> },
+  { text: 'Administration', icon: <MdSettings /> },
+  { text: 'Delete report', icon: <MdDelete />, disabled: true },
 ]
 
-storiesOf('Navigation Button', module)
-  .add('With text and icon', () => <NavButton text="Upload" icon={<MdCloudUpload />} />)
+const titleStyle: CSSProperties = {
+  fontSize: '27px',
+  fontWeight: 500,
+  color: '#666',
+}
+
+storiesOf('Navigation', module)
+  .add('Buttons', () => (
+    <div className="max-w-xs">
+      <div>
+        <h3 style={titleStyle} className="text-xl py-4">
+          Normal and hover
+        </h3>
+        <NavButton text="Uploads" icon={<MdCloudUpload />} />
+      </div>
+      <div>
+        <h3 style={titleStyle} className="text-xl py-4">
+          Selected
+        </h3>
+        <NavButton text="Uploads" icon={<MdCloudUpload />} selected />
+      </div>
+      <div>
+        <h3 style={titleStyle} className="text-xl py-4">
+          Disabled
+        </h3>
+        <NavButton text="Uploads" icon={<MdCloudUpload />} disabled />
+      </div>
+    </div>
+  ))
   .add('In a menu', () => {
     return (
       <ul className="flex flex-col w-full">
         {menuExample.map((data) => (
-          <NavButton key={data.title} text={data.title} icon={data.icon} />
+          <NavButton key={data.text} {...data} />
         ))}
       </ul>
     )
