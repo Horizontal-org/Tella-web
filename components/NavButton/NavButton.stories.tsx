@@ -45,7 +45,7 @@ storiesOf('Navigation', module)
   ))
   .add('In a menu', () => {
     return (
-      <ul className="flex flex-col w-full">
+      <ul className="flex flex-col gap-2 w-full">
         {menuExample.map((data) => (
           <NavButton key={data.text} {...data} />
         ))}
