@@ -2,39 +2,40 @@ const path = require('path')
 
 module.exports = {
   stories: ['../components/**/*.stories.@(ts|tsx)'],
-  addons: ['@storybook/preset-scss'],
-  webpackFinal: async (config) => {
-    ;(config.module.rules = [
-      ...config.module.rules,
-      {
-        test: /\.(ts|tsx)$/,
-        use: [
-          {
-            loader: require.resolve('babel-loader'),
-            options: {
-              presets: ['next/babel'],
-            },
-          },
-        ],
+  webpackFinal: async (baseConfig, options) => {
+    const { module = {} } = baseConfig
+    const newConfig = {
+      ...baseConfig,
+      module: {
+        ...module,
+        rules: [...(module.rules || [])],
       },
-      {
-        test: /\.(s*)css$/,
-        include: path.resolve(__dirname, '../components'),
-        use: [
-          {
-            loader: 'postcss-loader',
-            options: {
-              config: {
-                path: path.resolve(__dirname, '../postcss.config.js'),
-              },
-              ident: 'postcss',
-              sourceMap: true,
-            },
+    }
+
+    // NextJs uses css-modules outside the postcss.config.js configuration
+    // With these lines we modify the behavior of css-loader to generate the
+    // css modules. It's hack to imitate the behavior of nextjs in storybook
+    // as much as possible.
+
+    newConfig.module.rules.find(
+      (rule) => rule.test.toString() === '/\\.css$/'
+    ).exclude = /\.module\.css$/
+
+    newConfig.module.rules.push({
+      test: /\.module\.css$/,
+      include: path.resolve(__dirname, '../components'),
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+            modules: true,
           },
-        ],
-      },
-    ]),
-      config.resolve.extensions.push('.ts', '.tsx')
-    return config
+        },
+      ],
+    })
+
+    return newConfig
   },
 }
