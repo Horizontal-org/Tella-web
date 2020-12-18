@@ -1,3 +1,3 @@
-import 'fontsource-open-sans/700-normal.css'
+import 'fontsource-open-sans'
 import 'fontsource-lato'
 import '../styles/globals.css'
