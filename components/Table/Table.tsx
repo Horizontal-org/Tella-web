@@ -4,7 +4,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { FunctionComponent, useMemo } from 'react'
-import { Column, HeaderPropGetter, useTable } from 'react-table'
+import { Column, HeaderPropGetter, useTable, useRowSelect } from 'react-table'
+import cn from 'classnames'
+import { IndeterminateCheckbox } from './IndeterminateCheckbox'
 
 type Props = {
   columns: Column[]
@@ -15,10 +17,36 @@ type Props = {
 export const Table: FunctionComponent<Props> = ({ columns, data, getHeaderProps }: Props) => {
   const tColumns = useMemo(() => columns, [])
   const tData = useMemo(() => data, [])
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
-    columns: tColumns,
-    data: tData,
-  })
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    selectedFlatRows,
+    state: { selectedRowIds },
+  } = useTable(
+    {
+      columns: tColumns,
+      data: tData,
+    },
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((col) => [
+        {
+          id: 'selection',
+          Header: '',
+          // eslint-disable-next-line react/display-name
+          Cell: ({ row }) => (
+            <div>
+              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+            </div>
+          ),
+        },
+        ...col,
+      ])
+    }
+  )
 
   return (
     <table
@@ -35,7 +63,7 @@ export const Table: FunctionComponent<Props> = ({ columns, data, getHeaderProps 
               <th
                 {...column.getHeaderProps([
                   {
-                    className: `${column.className} px-4 py-2 font-medium`,
+                    className: `px-3 py-2 font-medium ${column.className}`,
                   },
                 ])}
               >
@@ -49,10 +77,16 @@ export const Table: FunctionComponent<Props> = ({ columns, data, getHeaderProps 
         {rows.map((row) => {
           prepareRow(row)
           return (
-            <tr {...row.getRowProps()} className="hover:bg-gray-100 border-b border-gray-200 py-10">
+            <tr
+              {...row.getRowProps()}
+              className={cn('border-b border-gray-200 hover:border-transparent', {
+                'bg-blue-light': row.isSelected,
+                'hover:bg-gray-200': !row.isSelected,
+              })}
+            >
               {row.cells.map((cell) => {
                 return (
-                  <td {...cell.getCellProps([{ className: `${cell.column.className} px-4 py-4` }])}>
+                  <td {...cell.getCellProps([{ className: cell.column.className || 'px-3 py-3' }])}>
                     {cell.render('Cell')}
                   </td>
                 )

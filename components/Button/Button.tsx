@@ -11,9 +11,16 @@ interface Props {
   icon?: ReactNode
   disabled?: boolean
   type?: btnType
+  onClick?: (event: unknown) => void
 }
 
-export const Button: FunctionComponent<Props> = ({ text, disabled, icon, type }: Props) => {
+export const Button: FunctionComponent<Props> = ({
+  text,
+  disabled,
+  icon,
+  type,
+  onClick,
+}: Props) => {
   const btnStyle = classnames({
     'flex flex-none w-auto py-1 rounded items-center text-sm font-bold font-osans uppercase border border-gray-300 active:shadow-inbox disabled:opacity-50': true,
     'text-white bg-blue-300 hover:bg-blue-400': type === btnType.Primary,
@@ -21,7 +28,7 @@ export const Button: FunctionComponent<Props> = ({ text, disabled, icon, type }:
   })
 
   return (
-    <button type="button" disabled={disabled} className={btnStyle}>
+    <button type="button" disabled={disabled} className={btnStyle} onClick={onClick}>
       {icon && <span className="text-base ml-2">{icon}</span>}
       <span className={`${!icon ? 'mx-3' : 'mx-2'}`}> {text}</span>
     </button>
@@ -32,4 +39,5 @@ Button.defaultProps = {
   icon: undefined,
   disabled: false,
   type: btnType.Primary,
+  onClick: () => null,
 }

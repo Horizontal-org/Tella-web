@@ -6,7 +6,7 @@ export const REPORT_COLUMNS: Column[] = [
   {
     Header: 'Name',
     accessor: 'title',
-    className: 'font-bold',
+    className: 'px-3 py-3 font-bold',
   },
   {
     Header: 'Date',
