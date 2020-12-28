@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/jsx-props-no-spreading */
 import { MdDelete } from '@react-icons/all-files/md/MdDelete'
@@ -30,7 +31,7 @@ storiesOf('Tables', module)
                 text="Delete"
                 icon={<MdDelete />}
                 type={btnType.Secondary}
-                onClick={(_) => {
+                onClick={() => {
                   console.log(`Delete ${row.id}`)
                 }}
               />
