@@ -10,7 +10,7 @@ const titleStyle: CSSProperties = {
   color: '#666',
 }
 
-const files: ReportFile[] = [
+export const fakeFiles: ReportFile[] = [
   {
     type: 'video',
     src: {
@@ -49,15 +49,28 @@ const files: ReportFile[] = [
   },
 ]
 
-storiesOf('Thumbnail', module).add('Thumbnail', () => (
-  <div className="max-w-xs">
-    {files.map((file) => (
-      <div key={file.type}>
-        <h3 style={titleStyle} className="text-xl py-4 capitalize">
-          {file.type}
-        </h3>
-        <Thumbnail file={file} onClick={() => alert(`Click on ${file.type}`)} />
-      </div>
-    ))}
-  </div>
-))
+storiesOf('Thumbnail', module)
+  .add('Small Thumbnail', () => (
+    <div className="max-w-xs">
+      {fakeFiles.map((file) => (
+        <div key={file.type}>
+          <h3 style={titleStyle} className="text-xl py-4 capitalize">
+            {file.type}
+          </h3>
+          <Thumbnail file={file} onClick={() => alert(`Click on ${file.type}`)} />
+        </div>
+      ))}
+    </div>
+  ))
+  .add('Full Thumbnail', () => (
+    <div className="max-w-xs">
+      {fakeFiles.map((file) => (
+        <div key={file.type}>
+          <h3 style={titleStyle} className="text-xl py-4 capitalize">
+            {file.type}
+          </h3>
+          <Thumbnail file={file} onClick={() => alert(`Click on ${file.type}`)} full />
+        </div>
+      ))}
+    </div>
+  ))

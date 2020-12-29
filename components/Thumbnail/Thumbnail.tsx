@@ -8,9 +8,10 @@ import { ReportFile, ReportFileType } from '../../domain/ReportFile'
 type Props = {
   file: ReportFile
   onClick?: () => void
+  full?: boolean
 }
 
-export const Thumbnail: FunctionComponent<Props> = ({ file, onClick }) => {
+export const Thumbnail: FunctionComponent<Props> = ({ file, onClick, full }) => {
   const icon = ((type: keyof typeof ReportFileType) => {
     switch (type) {
       case 'audio':
@@ -49,14 +50,21 @@ export const Thumbnail: FunctionComponent<Props> = ({ file, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className={cn('w-28 h-28 bg-gray-100 rounded', {
+      className={cn('bg-gray-100 rounded', {
         'cursor-pointer': onClick !== null,
+        'w-28 h-28': !full,
       })}
       aria-hidden="true" // TODO: a11y
     >
       <div
         style={getBackgroundImage(file.thumbnail)}
-        className="hover:bg-opacity-5 hover:bg-black w-28 h-28 flex content-center flex-wrap rounded-md border border-gray-300 hover:border-gray-400"
+        className={cn(
+          'hover:bg-opacity-5 hover:bg-black flex content-center flex-wrap rounded-md border border-gray-300 hover:border-gray-400',
+          {
+            'w-28 h-28': !full,
+            'h-32 w-auto': full,
+          }
+        )}
       >
         {icon}
       </div>
@@ -66,4 +74,5 @@ export const Thumbnail: FunctionComponent<Props> = ({ file, onClick }) => {
 
 Thumbnail.defaultProps = {
   onClick: null,
+  full: false,
 }
