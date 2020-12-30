@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  stories: ['../components/**/*.stories.@(ts|tsx)'],
+  stories: ['../components/**/*.stories.@(ts|tsx)', '../layouts/**/*.stories.@(ts|tsx)'],
   webpackFinal: async (baseConfig, options) => {
     const { module = {} } = baseConfig
     const newConfig = {

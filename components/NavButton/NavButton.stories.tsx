@@ -1,18 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 import { CSSProperties } from 'react'
 import { storiesOf } from '@storybook/react'
 import { MdCloudUpload } from '@react-icons/all-files/md/MdCloudUpload'
-import { MdPersonOutline } from '@react-icons/all-files/md/MdPersonOutline'
-import { MdSettings } from '@react-icons/all-files/md/MdSettings'
-import { MdDelete } from '@react-icons/all-files/md/MdDelete'
 
 import { NavButton } from './NavButton'
-
-const menuExample = [
-  { text: 'Reports', icon: <MdCloudUpload />, selected: true },
-  { text: 'Users', icon: <MdPersonOutline /> },
-  { text: 'Administration', icon: <MdSettings /> },
-  { text: 'Delete report', icon: <MdDelete />, disabled: true },
-]
+import { ExampleMenuMokedData } from '../../moked/menu'
 
 const titleStyle: CSSProperties = {
   fontSize: '27px',
@@ -46,7 +41,7 @@ storiesOf('Navigation', module)
   .add('In a menu', () => {
     return (
       <ul className="flex flex-col gap-2 w-full">
-        {menuExample.map((data) => (
+        {ExampleMenuMokedData.map((data) => (
           <NavButton key={data.text} {...data} />
         ))}
       </ul>

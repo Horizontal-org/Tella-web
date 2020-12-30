@@ -1,8 +1,8 @@
 /* eslint-disable no-alert */
 import { CSSProperties } from 'react'
 import { storiesOf } from '@storybook/react'
+import { FilesMokedData } from '../../moked/files'
 import { Thumbnail } from './Thumbnail'
-import { ReportFile } from '../../domain/ReportFile'
 
 const titleStyle: CSSProperties = {
   fontSize: '27px',
@@ -10,49 +10,10 @@ const titleStyle: CSSProperties = {
   color: '#666',
 }
 
-export const fakeFiles: ReportFile[] = [
-  {
-    type: 'video',
-    src: {
-      path: '',
-      name: '',
-      hash: '',
-    },
-    thumbnail:
-      'https://wearehorizontal.org/wp-content/uploads/2020/04/SourTyre_FemaleLebaneseProtestor-MobilePhone_RomanDeckert22102019.jpg',
-  },
-  {
-    type: 'image',
-    src: {
-      path: '',
-      name: '',
-      hash: '',
-    },
-    thumbnail:
-      'https://wearehorizontal.org/wp-content/uploads/2020/04/SourTyre_FemaleLebaneseProtestor-MobilePhone_RomanDeckert22102019.jpg',
-  },
-  {
-    type: 'audio',
-    src: {
-      path: '',
-      name: '',
-      hash: '',
-    },
-  },
-  {
-    type: 'file',
-    src: {
-      path: '',
-      name: '',
-      hash: '',
-    },
-  },
-]
-
 storiesOf('Thumbnail', module)
   .add('Small Thumbnail', () => (
     <div className="max-w-xs">
-      {fakeFiles.map((file) => (
+      {FilesMokedData.map((file) => (
         <div key={file.type}>
           <h3 style={titleStyle} className="text-xl py-4 capitalize">
             {file.type}
@@ -64,7 +25,7 @@ storiesOf('Thumbnail', module)
   ))
   .add('Full Thumbnail', () => (
     <div className="max-w-xs">
-      {fakeFiles.map((file) => (
+      {FilesMokedData.map((file) => (
         <div key={file.type}>
           <h3 style={titleStyle} className="text-xl py-4 capitalize">
             {file.type}

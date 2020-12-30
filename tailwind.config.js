@@ -28,6 +28,7 @@ module.exports = {
       base: ['14px', '16.8px'],
       lg: ['16px', '24px'],
       xl: ['20px', '28px'],
+      xxl: ['3rem', '4rem'],
     },
     boxShadow: {
       ...defaultTheme.boxShadow,
