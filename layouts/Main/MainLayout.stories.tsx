@@ -9,7 +9,8 @@ storiesOf('Layouts', module).add('Main', () => {
     <MainLayout
       title="Reports"
       subtitle="All the files and reports sent by your users"
-      sidebar={<SidebarLayout topMenu={TopMenuMokedData} bottomMenu={BottomMenuMokedData} />}
+      leftbar={<SidebarLayout topMenu={TopMenuMokedData} bottomMenu={BottomMenuMokedData} />}
+      rightbar={<SidebarLayout topMenu={TopMenuMokedData} bottomMenu={BottomMenuMokedData} />}
     />
   )
 })
