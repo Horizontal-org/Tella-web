@@ -50,17 +50,19 @@ export const Thumbnail: FunctionComponent<Props> = ({ file, onClick, full }) => 
   return (
     <div
       onClick={onClick}
-      className={cn('bg-gray-100 rounded', {
+      className={cn('bg-gray-25 rounded-md', {
         'cursor-pointer': onClick !== null,
         'w-28 h-28': !full,
       })}
+      style={getBackgroundImage(file.thumbnail)}
       aria-hidden="true" // TODO: a11y
     >
       <div
-        style={getBackgroundImage(file.thumbnail)}
         className={cn(
-          'hover:bg-opacity-5 hover:bg-black flex content-center flex-wrap rounded-md border border-gray-300 hover:border-gray-400',
+          'flex content-center flex-wrap border rounded-md border-gray-100 hover:border-gray-500 hover:bg-black',
           {
+            'hover:bg-opacity-5 ': file.thumbnail === undefined,
+            'hover:bg-opacity-10': file.thumbnail !== undefined,
             'w-28 h-28': !full,
             'h-32 w-auto': full,
           }

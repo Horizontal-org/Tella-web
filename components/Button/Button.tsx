@@ -1,5 +1,5 @@
 import { FunctionComponent, ReactNode } from 'react'
-import classnames from 'classnames'
+import cn from 'classnames'
 
 export enum btnType {
   'Primary',
@@ -21,12 +21,14 @@ export const Button: FunctionComponent<Props> = ({
   type,
   onClick,
 }: Props) => {
-  const btnStyle = classnames({
-    'flex flex-none w-auto py-1 rounded items-center text-sm font-bold font-sans uppercase border border-gray-300 active:shadow-inbox disabled:opacity-50': true,
-    'text-white bg-blue-300 hover:bg-blue-400': type === btnType.Primary,
-    'text-gray-500 bg-white hover:bg-gray-100': type === btnType.Secondary,
-    'cursor-not-allowed': disabled === true,
-  })
+  const btnStyle = cn(
+    'flex flex-none w-auto py-1 rounded items-center text-sm font-bold font-sans uppercase border border-gray-100 active:shadow-inbox disabled:opacity-50 focus:outline-none',
+    {
+      'text-white bg-blue-300 hover:bg-blue-400': type === btnType.Primary,
+      'text-gray-300 bg-white hover:bg-gray-50': type === btnType.Secondary,
+      'cursor-not-allowed': disabled === true,
+    }
+  )
 
   return (
     <button type="button" disabled={disabled} className={btnStyle} onClick={onClick}>

@@ -22,6 +22,15 @@ module.exports = {
         800: '#005ca1',
         900: '#005297',
       },
+      gray: {
+        ...defaultTheme.colors.gray,
+        25: '#f1f1f1',
+        50: '#f5f5f5',
+        100: '#d9d9d9',
+        300: '#8b8e8f',
+        500: '#5f6368',
+        700: '#404040',
+      },
     },
     fontSize: {
       sm: ['11px', '14px'],
@@ -42,6 +51,7 @@ module.exports = {
   },
   variants: {
     extend: {
+      placeholderColor: ['hover'],
       opacity: ['disabled'],
       boxShadow: ['active'],
     },
