@@ -57,7 +57,7 @@ export const Table: FunctionComponent<Props> = ({ columns, data, getHeaderProps 
         {headerGroups.map((headerGroup) => (
           <tr
             {...headerGroup.getHeaderGroupProps()}
-            className="rounded-lg text-base font-osans text-gray-500 text-left"
+            className="rounded-lg text-base font-sans text-gray-500 text-left"
           >
             {headerGroup.headers.map((column) => (
               <th

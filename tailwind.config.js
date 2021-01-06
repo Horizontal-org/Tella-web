@@ -36,8 +36,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['Lato', ...defaultTheme.fontFamily.sans],
-        osans: ['Open Sans', ...defaultTheme.fontFamily.sans],
+        sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
       },
     },
   },

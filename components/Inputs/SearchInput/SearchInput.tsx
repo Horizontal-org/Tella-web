@@ -8,7 +8,7 @@ export const SearchInput = forwardRef<HTMLInputElement, ComponentPropsWithoutRef
     const [inFocus, setFocus] = useState(false)
     return (
       <div className="relative">
-        <div className="absolute flex border border-transparent left-0 top-0 h-full w-10 font-osans">
+        <div className="absolute flex border border-transparent left-0 top-0 h-full w-10 font-sans">
           <div
             className={cn(
               'flex items-center justify-center rounded-tl rounded-bl z-10 text-lg h-full w-full text-center',

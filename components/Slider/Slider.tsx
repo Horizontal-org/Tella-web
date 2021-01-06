@@ -30,7 +30,7 @@ export const Slider: FunctionComponent<Props> = ({ items }) => {
       <div className="rounded-sm">{items[current - 1]}</div>
       <div className="flex justify-center my-5">
         <MdNavigateBefore className="cursor-pointer opacity-70 text-gray-400" onClick={goPrev} />
-        <p className="px-9 text-sm font-osans font-light text-gray-400">
+        <p className="px-9 text-sm font-sans font-light text-gray-400">
           {current} / {items.length}
         </p>
         <MdNavigateNext className="cursor-pointer opacity-70 text-gray-400" onClick={goNext} />

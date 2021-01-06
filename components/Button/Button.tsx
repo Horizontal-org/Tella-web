@@ -22,7 +22,7 @@ export const Button: FunctionComponent<Props> = ({
   onClick,
 }: Props) => {
   const btnStyle = classnames({
-    'flex flex-none w-auto py-1 rounded items-center text-sm font-bold font-osans uppercase border border-gray-300 active:shadow-inbox disabled:opacity-50': true,
+    'flex flex-none w-auto py-1 rounded items-center text-sm font-bold font-sans uppercase border border-gray-300 active:shadow-inbox disabled:opacity-50': true,
     'text-white bg-blue-300 hover:bg-blue-400': type === btnType.Primary,
     'text-gray-500 bg-white hover:bg-gray-100': type === btnType.Secondary,
     'cursor-not-allowed': disabled === true,

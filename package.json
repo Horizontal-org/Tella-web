@@ -27,7 +27,6 @@
     ]
   },
   "dependencies": {
-    "@fontsource/lato": "^4.0.1",
     "@fontsource/open-sans": "^4.0.1",
     "@react-icons/all-files": "^4.1.0",
     "@storybook/preset-scss": "^1.0.3",
