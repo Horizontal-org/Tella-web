@@ -10,9 +10,16 @@ type Props = {
   subtitle?: string
   leftbar?: React.ReactNode
   rightbar?: React.ReactNode
+  content: React.ReactNode
 }
 
-export const MainLayout: FunctionComponent<Props> = ({ leftbar, rightbar, title, subtitle }) => {
+export const MainLayout: FunctionComponent<Props> = ({
+  content,
+  leftbar,
+  rightbar,
+  title,
+  subtitle,
+}) => {
   const [leftSidebarOpen, changeLeftSidebarOpneStatus] = useState(true)
   const [rightSidebarOpen, changeRightSidebarOpneStatus] = useState(true)
 
@@ -36,39 +43,43 @@ export const MainLayout: FunctionComponent<Props> = ({ leftbar, rightbar, title,
       <div
         className={cn('p-8 flex-1 transition-all duration-300 ease-in-out', {
           'transform -ml-56': !leftSidebarOpen,
-          'transform -mr-56': !rightSidebarOpen,
+          'transform -mr-64': !rightSidebarOpen,
         })}
       >
         <div className="py-4">
           {title && <Title>{title}</Title>}
           {subtitle && <SubTitle>{subtitle}</SubTitle>}
         </div>
-        <div className="flex justify-between">
+        <div className="flex">
           {leftbar && (
-            <img
-              src="/images/handbar-toggle.png"
-              alt="Toggle left sidebar"
-              className="cursor-pointer"
-              onClick={toggleLeftSideBar}
-            />
+            <div>
+              <img
+                src="/images/handbar-toggle.png"
+                alt="Toggle left sidebar"
+                className="cursor-pointer border-r my-2 py-1 pr-3"
+                onClick={toggleLeftSideBar}
+              />
+            </div>
           )}
-          <div />
+          <div className="flex-1">{content}</div>
           {rightbar && (
-            <img
-              src="/images/handbar-toggle.png"
-              alt="Toggle right sidebar"
-              className="cursor-pointer transform rotate-180"
-              onClick={toggleRightSideBar}
-            />
+            <div>
+              <img
+                src="/images/handbar-toggle.png"
+                alt="Toggle right sidebar"
+                className="cursor-pointer transform rotate-180 border-r my-2 py-1 pr-3"
+                onClick={toggleRightSideBar}
+              />
+            </div>
           )}
         </div>
       </div>
       {rightbar && (
         <div
           className={cn(
-            'w-56 md:flex border-l p-8 border-gray-100 transition-all transform duration-300 ease-in-out',
+            'w-64 md:flex border-l p-5 border-gray-100 transition-all transform duration-300 ease-in-out',
             {
-              'translate-x-56': !rightSidebarOpen,
+              'translate-x-64': !rightSidebarOpen,
             }
           )}
         >

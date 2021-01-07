@@ -36,6 +36,7 @@ export const Table: FunctionComponent<Props> = ({ columns, data, getHeaderProps 
         {
           id: 'selection',
           Header: '',
+          className: 'max-w-content text-center',
           // eslint-disable-next-line react/display-name
           Cell: ({ row }) => (
             <div>
@@ -53,17 +54,17 @@ export const Table: FunctionComponent<Props> = ({ columns, data, getHeaderProps 
       {...getTableProps()}
       className={`table-auto border-collapse w-full ${getTableProps().className}`}
     >
-      <thead>
+      <thead className="border-b border-gray-200">
         {headerGroups.map((headerGroup) => (
           <tr
             {...headerGroup.getHeaderGroupProps()}
-            className="rounded-lg text-base font-sans text-gray-500 text-left"
+            className="rounded-lg text-base font-sans text-gray-300 text-left"
           >
             {headerGroup.headers.map((column) => (
               <th
                 {...column.getHeaderProps([
                   {
-                    className: `px-3 py-2 font-medium ${column.className}`,
+                    className: `${column.className} font-semibold text-base`,
                   },
                 ])}
               >
@@ -73,7 +74,7 @@ export const Table: FunctionComponent<Props> = ({ columns, data, getHeaderProps 
           </tr>
         ))}
       </thead>
-      <tbody {...getTableBodyProps()} className="text-sm font-normal text-gray-700">
+      <tbody {...getTableBodyProps()} className="text-base text-gray-700">
         {rows.map((row) => {
           prepareRow(row)
           return (
