@@ -31,7 +31,7 @@ export const MainLayout: FunctionComponent<Props> = ({
       {leftbar && (
         <div
           className={cn(
-            'w-56 md:flex border-r p-8 border-gray-100 transition-all transform duration-300 ease-in-out',
+            'w-56 md:flex border-r p-8 border-gray-100 transition-all transform duration-300 ease-in-out h-screen fixed top-0 left-0',
             {
               '-translate-x-56': !leftSidebarOpen,
             }
@@ -41,9 +41,9 @@ export const MainLayout: FunctionComponent<Props> = ({
         </div>
       )}
       <div
-        className={cn('p-8 flex-1 transition-all duration-300 ease-in-out', {
-          'transform -ml-56': !leftSidebarOpen,
-          'transform -mr-64': !rightSidebarOpen,
+        className={cn('p-6 flex-1 transition-all duration-300 ease-in-out', {
+          'transform ml-56': leftSidebarOpen,
+          'transform mr-64': rightSidebarOpen,
         })}
       >
         <div className="py-4">
@@ -77,7 +77,7 @@ export const MainLayout: FunctionComponent<Props> = ({
       {rightbar && (
         <div
           className={cn(
-            'w-64 md:flex border-l p-5 border-gray-100 transition-all transform duration-300 ease-in-out',
+            'w-64 flex border-l p-5 border-gray-100 transition-all transform duration-300 ease-in-out h-screen fixed right-0 top-0',
             {
               'translate-x-64': !rightSidebarOpen,
             }

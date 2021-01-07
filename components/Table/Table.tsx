@@ -36,7 +36,7 @@ export const Table: FunctionComponent<Props> = ({ columns, data, getHeaderProps 
         {
           id: 'selection',
           Header: '',
-          className: 'max-w-content text-center',
+          className: 'max-w-content text-center p-2',
           // eslint-disable-next-line react/display-name
           Cell: ({ row }) => (
             <div>

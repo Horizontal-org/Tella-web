@@ -6347,6 +6347,11 @@ filelist@^1.0.1:
   dependencies:
     minimatch "^3.0.4"
 
+filesize.js@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/filesize.js/-/filesize.js-2.0.0.tgz#b212f8dfe35de64bca9b7141ca3ddb2e7413f139"
+  integrity sha512-dOngzfsRfjwTQkG3UPY3GI+OqbBj4mO1UW1FoDYN2SF/p7hACKXHKGjgA62ug4KtORXcXdlEKOXrgfzt+qB2Nw==
+
 filesize@6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/filesize/-/filesize-6.0.1.tgz#f850b509909c7c86f7e450ea19006c31c2ed3d2f"

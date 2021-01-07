@@ -11,6 +11,7 @@ export type ReportFile = {
     name: string
     hash: string
   }
+  size: number
   thumbnail?: string
   type: keyof typeof ReportFileType
 }
