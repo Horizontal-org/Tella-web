@@ -7,7 +7,7 @@ export enum btnType {
 }
 
 interface Props {
-  text: string
+  text?: string
   icon?: ReactNode
   disabled?: boolean
   type?: btnType
@@ -22,7 +22,7 @@ export const Button: FunctionComponent<Props> = ({
   onClick,
 }: Props) => {
   const btnStyle = cn(
-    'flex flex-none w-auto py-1 rounded items-center text-sm font-bold font-sans uppercase border border-gray-100 active:shadow-inbox disabled:opacity-50 focus:outline-none',
+    'flex flex-none w-auto py-1 px-2 space-x-2 rounded items-center text-sm font-bold font-sans uppercase border border-gray-100 active:shadow-inbox disabled:opacity-50 focus:outline-none',
     {
       'text-white bg-blue-300 hover:bg-blue-400': type === btnType.Primary,
       'text-gray-300 bg-white hover:bg-gray-50': type === btnType.Secondary,
@@ -32,14 +32,15 @@ export const Button: FunctionComponent<Props> = ({
 
   return (
     <button type="button" disabled={disabled} className={btnStyle} onClick={onClick}>
-      {icon && <span className="text-base ml-2">{icon}</span>}
-      <span className={`${!icon ? 'mx-3' : 'mx-2'}`}> {text}</span>
+      {icon && <span className="text-base">{icon}</span>}
+      {text && <span> {text}</span>}
     </button>
   )
 }
 
 Button.defaultProps = {
   icon: undefined,
+  text: undefined,
   disabled: false,
   type: btnType.Primary,
   onClick: () => null,

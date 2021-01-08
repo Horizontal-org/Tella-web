@@ -9,5 +9,5 @@ export const FakeReport: Report = {
     id: 'uuid-123abc',
   },
   date: 1609864249034,
-  files: FilesMokedData,
+  files: [...FilesMokedData, ...FilesMokedData],
 }

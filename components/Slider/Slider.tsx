@@ -1,6 +1,7 @@
 import { FunctionComponent, useState } from 'react'
 import { MdNavigateBefore } from '@react-icons/all-files/md/MdNavigateBefore'
 import { MdNavigateNext } from '@react-icons/all-files/md/MdNavigateNext'
+import { SliderControl } from './SliderControl'
 
 type Props = {
   items: React.ReactNode[]
@@ -26,15 +27,13 @@ export const Slider: FunctionComponent<Props> = ({ items }) => {
   }
 
   return (
-    <div className="flex-row">
-      <div className="rounded-sm">{items[current - 1]}</div>
-      <div className="flex justify-center my-5">
-        <MdNavigateBefore className="cursor-pointer opacity-70 text-gray-400" onClick={goPrev} />
-        <p className="px-9 text-sm font-sans font-light text-gray-400">
-          {current} / {items.length}
-        </p>
-        <MdNavigateNext className="cursor-pointer opacity-70 text-gray-400" onClick={goNext} />
+    items.length > 0 && (
+      <div className="flex-row">
+        <div className="rounded-sm">{items[current - 1]}</div>
+        <div className="flex justify-center my-5 px-10">
+          <SliderControl goPrev={goPrev} goNext={goNext} current={current} total={items.length} />
+        </div>
       </div>
-    </div>
+    )
   )
 }

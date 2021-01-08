@@ -3,18 +3,25 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { FunctionComponent, useMemo } from 'react'
+import { FunctionComponent, useEffect, useMemo } from 'react'
 import { Column, HeaderPropGetter, useTable, useRowSelect } from 'react-table'
 import cn from 'classnames'
 import { IndeterminateCheckbox } from './IndeterminateCheckbox'
+import { Report } from '../../domain/Report'
 
 type Props = {
   columns: Column[]
   data: object[]
   getHeaderProps?: HeaderPropGetter<object>
+  onSelection?: (reports: Report[]) => void
 }
 
-export const Table: FunctionComponent<Props> = ({ columns, data, getHeaderProps }: Props) => {
+export const Table: FunctionComponent<Props> = ({
+  columns,
+  data,
+  getHeaderProps,
+  onSelection,
+}: Props) => {
   const tColumns = useMemo(() => columns, [])
   const tData = useMemo(() => data, [])
   const {
@@ -48,6 +55,11 @@ export const Table: FunctionComponent<Props> = ({ columns, data, getHeaderProps 
       ])
     }
   )
+
+  useEffect(() => {
+    const r = selectedFlatRows.map((d) => d.original) as Report[]
+    onSelection(r)
+  }, [selectedRowIds, onSelection])
 
   return (
     <table
@@ -105,4 +117,5 @@ const defaultPropGetter = () => ({})
 
 Table.defaultProps = {
   getHeaderProps: defaultPropGetter,
+  onSelection: () => null,
 }

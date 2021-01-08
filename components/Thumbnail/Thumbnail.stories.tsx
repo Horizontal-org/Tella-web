@@ -30,7 +30,21 @@ storiesOf('Thumbnail', module)
           <h3 style={titleStyle} className="text-xl py-4 capitalize">
             {file.type}
           </h3>
-          <Thumbnail file={file} onClick={() => alert(`Click on ${file.type}`)} full />
+          <div className="w-64 h-40">
+            <Thumbnail file={file} onClick={() => alert(`Click on ${file.type}`)} full />
+          </div>
+        </div>
+      ))}
+    </div>
+  ))
+  .add('Box Thumbnail', () => (
+    <div className="max-w-xs">
+      {FilesMokedData.map((file) => (
+        <div key={file.type}>
+          <h3 style={titleStyle} className="text-xl py-4 capitalize">
+            {file.type}
+          </h3>
+          <Thumbnail file={file} onClick={() => alert(`Click on ${file.type}`)} box />
         </div>
       ))}
     </div>

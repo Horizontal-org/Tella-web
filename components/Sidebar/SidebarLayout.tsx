@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { MenuDescription } from '../../domain/Menu'
-import { NavButton } from '../../components/NavButton/NavButton'
+import { NavButton } from '../NavButton/NavButton'
 
 type Props = {
   topMenu: MenuDescription[]

@@ -9,9 +9,10 @@ type Props = {
   file: ReportFile
   onClick?: () => void
   full?: boolean
+  box?: boolean
 }
 
-export const Thumbnail: FunctionComponent<Props> = ({ file, onClick, full }) => {
+export const Thumbnail: FunctionComponent<Props> = ({ file, onClick, full, box }) => {
   const icon = ((type: keyof typeof ReportFileType) => {
     switch (type) {
       case 'audio':
@@ -52,7 +53,9 @@ export const Thumbnail: FunctionComponent<Props> = ({ file, onClick, full }) => 
       onClick={onClick}
       className={cn('bg-gray-25 rounded-md', {
         'cursor-pointer': onClick !== null,
-        'w-28 h-28': !full,
+        'w-full h-full': full,
+        'w-24 h-24': !full && !box,
+        'aspect-w-4 aspect-h-4 w-full': box,
       })}
       style={getBackgroundImage(file.thumbnail)}
       aria-hidden="true" // TODO: a11y
@@ -63,12 +66,13 @@ export const Thumbnail: FunctionComponent<Props> = ({ file, onClick, full }) => 
           {
             'hover:bg-opacity-5 ': file.thumbnail === undefined,
             'hover:bg-opacity-10': file.thumbnail !== undefined,
-            'w-28 h-28': !full,
-            'h-32 w-auto': full,
+            'w-24 h-24': !full && !box,
+            'aspect-w-4 aspect-h-4 w-full': box,
+            'h-full w-full': full,
           }
         )}
       >
-        {icon}
+        <div className="w-full h-full flex">{icon}</div>
       </div>
     </div>
   )
@@ -77,4 +81,5 @@ export const Thumbnail: FunctionComponent<Props> = ({ file, onClick, full }) => 
 Thumbnail.defaultProps = {
   onClick: null,
   full: false,
+  box: false,
 }

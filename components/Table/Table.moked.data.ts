@@ -1,5 +1,6 @@
 import namor from 'namor'
 import { Report } from '../../domain/Report'
+import { FilesMokedData } from '../../moked/files'
 
 const range = (amount: number) => {
   const arr: number[] = []
@@ -26,7 +27,7 @@ const newReport = (): Report => {
       id: randomId(),
       name: randomSentence(2),
     },
-    files: [],
+    files: FilesMokedData,
     date: Date.now(),
   }
 }

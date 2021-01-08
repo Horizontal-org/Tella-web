@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import { FunctionComponent, useState } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 import cn from 'classnames'
-import { Title, SubTitle } from '../Headers/Headers'
+import { Title, SubTitle } from '../../components/Headers/Headers'
+import { Report } from '../../domain/Report'
 
 type Props = {
   title?: string
@@ -11,6 +12,8 @@ type Props = {
   leftbar?: React.ReactNode
   rightbar?: React.ReactNode
   content: React.ReactNode
+  currentReport?: Report
+  onClosePreview?: () => void
 }
 
 export const MainLayout: FunctionComponent<Props> = ({
@@ -19,12 +22,24 @@ export const MainLayout: FunctionComponent<Props> = ({
   rightbar,
   title,
   subtitle,
+  currentReport,
+  onClosePreview,
 }) => {
-  const [leftSidebarOpen, changeLeftSidebarOpneStatus] = useState(true)
-  const [rightSidebarOpen, changeRightSidebarOpneStatus] = useState(true)
+  const [leftSidebarOpen, changeLeftSidebarOpenStatus] = useState(true)
+  const [rightSidebarOpen, changeRightSidebarOpenStatus] = useState(false)
 
-  const toggleLeftSideBar = () => changeLeftSidebarOpneStatus(!leftSidebarOpen)
-  const toggleRightSideBar = () => changeRightSidebarOpneStatus(!rightSidebarOpen)
+  const toggleLeftSideBar = () => changeLeftSidebarOpenStatus(!leftSidebarOpen)
+  const toggleRightSideBar = () => changeRightSidebarOpenStatus(!rightSidebarOpen)
+
+  useEffect(() => {
+    if (currentReport) changeRightSidebarOpenStatus(true)
+  }, [currentReport])
+
+  useEffect(() => {
+    if (rightSidebarOpen === false && onClosePreview) {
+      onClosePreview()
+    }
+  }, [rightSidebarOpen])
 
   return (
     <div className="flex w-full min-h-screen bg-white overflow-x-hidden">
@@ -42,8 +57,8 @@ export const MainLayout: FunctionComponent<Props> = ({
       )}
       <div
         className={cn('p-6 flex-1 transition-all duration-300 ease-in-out', {
-          'transform ml-56': leftSidebarOpen,
-          'transform mr-64': rightSidebarOpen,
+          'transform ml-56': leftbar && leftSidebarOpen,
+          'transform mr-64': rightbar && rightSidebarOpen,
         })}
       >
         <div className="py-4">
@@ -62,7 +77,7 @@ export const MainLayout: FunctionComponent<Props> = ({
             </div>
           )}
           <div className="flex-1">{content}</div>
-          {rightbar && (
+          {currentReport && rightbar && (
             <div>
               <img
                 src="/images/handbar-toggle.png"
