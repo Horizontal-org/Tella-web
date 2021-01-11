@@ -8,7 +8,7 @@ storiesOf('Slider', module).add('Slider', () => {
     <div className="w-52">
       <Slider
         items={FilesMokedData.map((f, i) => (
-          <Thumbnail file={f} key={i.toString()} full />
+          <Thumbnail file={f} key={i.toString()} box />
         ))}
       />
     </div>
