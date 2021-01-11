@@ -5,6 +5,10 @@ import { makeReportData } from '../components/Table/Table.moked.data'
 import { ReportDetailsLayout } from './ReportDetails/ReportDetailsLayout'
 import { ReportListLayout } from './ReportList/ReportListLayout'
 
+export const parameters = {
+  layout: 'fullscreen',
+}
+
 storiesOf('Layouts', module)
   .add('Report Lists', () => {
     return <ReportListLayout reports={makeReportData(20)} />
