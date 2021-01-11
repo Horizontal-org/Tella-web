@@ -12,6 +12,7 @@ interface Props {
   disabled?: boolean
   type?: btnType
   onClick?: (event: unknown) => void
+  onBlur?: (event: unknown) => void
 }
 
 export const Button: FunctionComponent<Props> = ({
@@ -20,6 +21,7 @@ export const Button: FunctionComponent<Props> = ({
   icon,
   type,
   onClick,
+  onBlur,
 }: Props) => {
   const btnStyle = cn(
     'flex flex-none w-auto py-1 px-2 space-x-2 rounded items-center text-sm font-bold font-sans uppercase border border-gray-100 active:shadow-inbox disabled:opacity-50 focus:outline-none',
@@ -31,7 +33,13 @@ export const Button: FunctionComponent<Props> = ({
   )
 
   return (
-    <button type="button" disabled={disabled} className={btnStyle} onClick={onClick}>
+    <button
+      type="button"
+      disabled={disabled}
+      className={btnStyle}
+      onClick={onClick}
+      onBlur={onBlur}
+    >
       {icon && <span className="text-base">{icon}</span>}
       {text && <span> {text}</span>}
     </button>
@@ -44,4 +52,5 @@ Button.defaultProps = {
   disabled: false,
   type: btnType.Primary,
   onClick: () => null,
+  onBlur: () => null,
 }
