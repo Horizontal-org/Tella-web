@@ -2,6 +2,7 @@ import { FunctionComponent, useState } from 'react'
 import { MdOpenInNew } from '@react-icons/all-files/md/MdOpenInNew'
 import { MdRemoveRedEye } from '@react-icons/all-files/md/MdRemoveRedEye'
 import { MdSave } from '@react-icons/all-files/md/MdSave'
+import { MdDelete } from '@react-icons/all-files/md/MdDelete'
 import { btnType, Button } from '../../components/Button/Button'
 import { ReportBar } from '../../components/ReportBar/ReportBar'
 import { SidebarLayout } from '../../components/Sidebar/SidebarLayout'
@@ -10,6 +11,8 @@ import { Report } from '../../domain/Report'
 import { TopMenuMokedData, BottomMenuMokedData } from '../../moked/menu'
 import { MainLayout } from '../Main/MainLayout'
 import { REPORT_COLUMNS } from '../../domain/ReportTableColumns'
+import { ButtonMenu } from '../../components/ButtonMenu/ButtonMenu'
+import { ButtonOption } from '../../components/ButtonMenu/ButtonOption'
 
 type Props = {
   reports: Report[]
@@ -44,7 +47,9 @@ export const ReportListLayout: FunctionComponent<Props> = ({ reports }) => {
                   </>
                 )}
                 <Button type={btnType.Secondary} icon={<MdSave />} text="Download" />
-                <Button type={btnType.Secondary} text="..." />
+                <ButtonMenu openSide="right">
+                  <ButtonOption icon={<MdDelete />} text="Delete" color="#D6933B" />
+                </ButtonMenu>
               </>
             )}
           </div>

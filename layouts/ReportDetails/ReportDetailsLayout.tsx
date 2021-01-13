@@ -7,17 +7,23 @@ import { MdInfoOutline } from '@react-icons/all-files/md/MdInfoOutline'
 import { MdSave } from '@react-icons/all-files/md/MdSave'
 import { BsArrowsAngleExpand } from '@react-icons/all-files/bs/BsArrowsAngleExpand'
 import { MdRemoveRedEye } from '@react-icons/all-files/md/MdRemoveRedEye'
+import { MdDelete } from '@react-icons/all-files/md/MdDelete'
 import { Report } from '../../domain/Report'
 import { ReportInformation } from '../../components/ReportInformation/ReportInformation'
 import { Thumbnail } from '../../components/Thumbnail/Thumbnail'
 import { btnType, Button } from '../../components/Button/Button'
 import { SliderControl } from '../../components/Slider/SliderControl'
+import { ButtonMenu } from '../../components/ButtonMenu/ButtonMenu'
+import { ButtonOption } from '../../components/ButtonMenu/ButtonOption'
+import { ReportFile } from '../../domain/ReportFile'
 
 type Props = {
   report: Report
+  onDelete: (report: Report, file: ReportFile) => void
+  onClose: () => void
 }
 
-export const ReportDetailsLayout: FunctionComponent<Props> = ({ report }) => {
+export const ReportDetailsLayout: FunctionComponent<Props> = ({ report, onDelete, onClose }) => {
   const [leftSidebarOpen, changeLeftSidebarOpneStatus] = useState(true)
   const [rightSidebarOpen, changeRightSidebarOpneStatus] = useState(true)
 
@@ -124,8 +130,15 @@ export const ReportDetailsLayout: FunctionComponent<Props> = ({ report }) => {
           <h2 className="text-gray-500 font-bold px-4">{report.title}</h2>
         </div>
         <div className="flex space-x-2">
+          <ButtonMenu openSide="left">
+            <ButtonOption
+              icon={<MdDelete />}
+              text="Delete"
+              color="#D6933B"
+              onClick={() => onDelete(report, report.files[current])}
+            />
+          </ButtonMenu>
           <Button icon={<MdRemoveRedEye />} text="Preview" />
-          <Button type={btnType.Secondary} text="..." />
         </div>
       </div>
     </div>

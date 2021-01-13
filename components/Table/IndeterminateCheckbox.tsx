@@ -8,28 +8,11 @@
 // TODO: Fix the types in this react-table hack
 
 import { useEffect, forwardRef, useRef, Ref } from 'react'
+import { useCombinedRefs } from '../../utilities/useCombinedRefs'
 
 interface Props {
   indeterminate?: boolean
   name?: string
-}
-
-const useCombinedRefs = (...refs): React.MutableRefObject<any> => {
-  const targetRef = useRef()
-
-  useEffect(() => {
-    refs.forEach((ref) => {
-      if (!ref) return
-
-      if (typeof ref === 'function') {
-        ref(targetRef.current)
-      } else {
-        ref.current = targetRef.current
-      }
-    })
-  }, [refs])
-
-  return targetRef
 }
 
 export const IndeterminateCheckbox = forwardRef<HTMLInputElement, Props>(
