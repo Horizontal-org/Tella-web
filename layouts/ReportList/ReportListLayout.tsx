@@ -13,12 +13,21 @@ import { MainLayout } from '../Main/MainLayout'
 import { REPORT_COLUMNS } from '../../domain/ReportTableColumns'
 import { ButtonMenu } from '../../components/ButtonMenu/ButtonMenu'
 import { ButtonOption } from '../../components/ButtonMenu/ButtonOption'
+import { ReportsQuery } from '../../domain/ReportQuery'
 
 type Props = {
   reports: Report[]
+  loadReports: (reportsQuery: ReportsQuery) => void
+  onDelete: (reports: Report[]) => void
+  onOpenReport: (report) => void
 }
 
-export const ReportListLayout: FunctionComponent<Props> = ({ reports }) => {
+export const ReportListLayout: FunctionComponent<Props> = ({
+  reports,
+  loadReports,
+  onDelete,
+  onOpenReport,
+}) => {
   const [currentReport, setCurrentReport] = useState<Report | undefined>()
   const [selectedReports, setSelectedReports] = useState<Report[]>([])
 
@@ -37,7 +46,13 @@ export const ReportListLayout: FunctionComponent<Props> = ({ reports }) => {
               <>
                 {selectedReports.length === 1 && (
                   <>
-                    <Button icon={<MdOpenInNew />} text="Open" />
+                    <Button
+                      icon={<MdOpenInNew />}
+                      text="Open"
+                      onClick={() => {
+                        onOpenReport(selectedReports[0])
+                      }}
+                    />
                     <Button
                       type={btnType.Secondary}
                       icon={<MdRemoveRedEye />}
@@ -48,12 +63,22 @@ export const ReportListLayout: FunctionComponent<Props> = ({ reports }) => {
                 )}
                 <Button type={btnType.Secondary} icon={<MdSave />} text="Download" />
                 <ButtonMenu openSide="right">
-                  <ButtonOption icon={<MdDelete />} text="Delete" color="#D6933B" />
+                  <ButtonOption
+                    icon={<MdDelete />}
+                    text="Delete"
+                    color="#D6933B"
+                    onClick={() => onDelete(selectedReports)}
+                  />
                 </ButtonMenu>
               </>
             )}
           </div>
-          <Table columns={REPORT_COLUMNS} data={reports} onSelection={setSelectedReports} />
+          <Table
+            columns={REPORT_COLUMNS}
+            data={reports}
+            onSelection={setSelectedReports}
+            onFetch={loadReports}
+          />
         </div>
       }
       leftbar={<SidebarLayout topMenu={TopMenuMokedData} bottomMenu={BottomMenuMokedData} />}
