@@ -3,7 +3,7 @@ import { ReportFile } from './ReportFile'
 
 export type Report = {
   id: string
-  title: string
+  name: string
   reporter: Reporter
   date: number
   files: ReportFile[]

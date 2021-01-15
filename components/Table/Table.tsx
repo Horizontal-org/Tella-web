@@ -1,26 +1,32 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { FunctionComponent, useEffect, useMemo } from 'react'
-import { Column, HeaderPropGetter, useTable, useRowSelect } from 'react-table'
+import { Column, useTable, useRowSelect, useSortBy } from 'react-table'
 import cn from 'classnames'
+import { MdExpandMore } from '@react-icons/all-files/md/MdExpandMore'
+import { MdExpandLess } from '@react-icons/all-files/md/MdExpandLess'
 import { IndeterminateCheckbox } from './IndeterminateCheckbox'
 import { Report } from '../../domain/Report'
+import { ReportsQuery } from '../../domain/ReportQuery'
 
 type Props = {
-  columns: Column[]
-  data: object[]
-  getHeaderProps?: HeaderPropGetter<object>
+  columns: Array<Column<{}>>
+  data: Array<Report>
   onSelection?: (reports: Report[]) => void
+  onFetch?: (reportQuery: ReportsQuery) => void
+  reportQuery?: ReportsQuery
 }
 
 export const Table: FunctionComponent<Props> = ({
   columns,
   data,
-  getHeaderProps,
   onSelection,
+  onFetch,
+  reportQuery,
 }: Props) => {
   const tColumns = useMemo(() => columns, [])
   const tData = useMemo(() => data, [])
@@ -31,12 +37,18 @@ export const Table: FunctionComponent<Props> = ({
     rows,
     prepareRow,
     selectedFlatRows,
-    state: { selectedRowIds },
+    state: { selectedRowIds, pageIndex, pageSize, sortBy },
   } = useTable(
     {
       columns: tColumns,
       data: tData,
+      manualPagination: true,
+      manualSortBy: true,
+      autoResetPage: false,
+      autoResetSortBy: false,
+      pageCount: reportQuery.pagination.total / reportQuery.pagination.size,
     },
+    useSortBy,
     useRowSelect,
     (hooks) => {
       hooks.visibleColumns.push((col) => [
@@ -61,6 +73,18 @@ export const Table: FunctionComponent<Props> = ({
     onSelection(r)
   }, [selectedRowIds, onSelection])
 
+  useEffect(() => {
+    onFetch({
+      ...reportQuery,
+      sort: sortBy,
+      pagination: {
+        ...reportQuery.pagination,
+        size: pageSize,
+        page: pageIndex,
+      },
+    })
+  }, [onFetch, sortBy])
+
   return (
     <table
       {...getTableProps()}
@@ -78,9 +102,23 @@ export const Table: FunctionComponent<Props> = ({
                   {
                     className: `${column.className} font-semibold text-base`,
                   },
+                  column.getSortByToggleProps(),
                 ])}
               >
-                {column.render('Header')}
+                <div className="flex flex-row">
+                  {column.render('Header')}
+                  <span>
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <MdExpandMore />
+                      ) : (
+                        <MdExpandLess />
+                      )
+                    ) : (
+                      ''
+                    )}
+                  </span>
+                </div>
               </th>
             ))}
           </tr>
@@ -112,10 +150,8 @@ export const Table: FunctionComponent<Props> = ({
   )
 }
 
-// Create a default prop getter
-const defaultPropGetter = () => ({})
-
 Table.defaultProps = {
-  getHeaderProps: defaultPropGetter,
   onSelection: () => null,
+  onFetch: () => null,
+  reportQuery: { filter: {}, sort: [], pagination: { page: 1, total: 1, size: 1 } },
 }

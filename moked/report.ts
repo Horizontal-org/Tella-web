@@ -2,7 +2,7 @@ import { Report } from '../domain/Report'
 import { FilesMokedData } from './files'
 
 export const FakeReport: Report = {
-  title: 'Cops ask for bribe',
+  name: 'Cops ask for bribe',
   id: 'uuid-abc123',
   reporter: {
     name: 'Raphael Mimoun',
