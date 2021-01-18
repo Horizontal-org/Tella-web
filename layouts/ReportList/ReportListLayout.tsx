@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react'
+import { FormEvent, FunctionComponent, useEffect, useRef, useState } from 'react'
 import { MdOpenInNew } from '@react-icons/all-files/md/MdOpenInNew'
 import { MdRemoveRedEye } from '@react-icons/all-files/md/MdRemoveRedEye'
 import { MdSave } from '@react-icons/all-files/md/MdSave'
@@ -14,12 +14,13 @@ import { REPORT_COLUMNS } from '../../domain/ReportTableColumns'
 import { ButtonMenu } from '../../components/ButtonMenu/ButtonMenu'
 import { ButtonOption } from '../../components/ButtonMenu/ButtonOption'
 import { ReportsQuery } from '../../domain/ReportQuery'
+import { SearchInput } from '../../components/Inputs/SearchInput/SearchInput'
 
 type Props = {
   reports: Report[]
   loadReports: (reportsQuery: ReportsQuery) => void
   onDelete: (reports: Report[]) => void
-  onOpenReport: (report) => void
+  onOpenReport: (report: Report) => void
 }
 
 export const ReportListLayout: FunctionComponent<Props> = ({
@@ -30,10 +31,35 @@ export const ReportListLayout: FunctionComponent<Props> = ({
 }) => {
   const [currentReport, setCurrentReport] = useState<Report | undefined>()
   const [selectedReports, setSelectedReports] = useState<Report[]>([])
+  const [currentReportQuery, setReportQuery] = useState<ReportsQuery>({
+    pagination: {
+      page: 1,
+      total: 1,
+      size: 1,
+    },
+    sort: [],
+    filter: {},
+  })
+  const searchInput = useRef<HTMLInputElement>()
 
   const openReport = () => {
     setCurrentReport(selectedReports[0])
   }
+
+  const search = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const name = searchInput.current.value
+    setReportQuery({
+      ...currentReportQuery,
+      filter: {
+        byName: name,
+      },
+    })
+  }
+
+  useEffect(() => {
+    loadReports(currentReportQuery)
+  }, [currentReportQuery])
 
   return (
     <MainLayout
@@ -42,6 +68,11 @@ export const ReportListLayout: FunctionComponent<Props> = ({
       content={
         <div>
           <div className="flex h-10 space-x-2 mb-2 p-2">
+            {selectedReports.length === 0 && (
+              <form onSubmit={search}>
+                <SearchInput ref={searchInput} />
+              </form>
+            )}
             {selectedReports.length > 0 && (
               <>
                 {selectedReports.length === 1 && (
@@ -76,8 +107,9 @@ export const ReportListLayout: FunctionComponent<Props> = ({
           <Table
             columns={REPORT_COLUMNS}
             data={reports}
+            reportQuery={currentReportQuery}
             onSelection={setSelectedReports}
-            onFetch={loadReports}
+            onFetch={setReportQuery}
           />
         </div>
       }

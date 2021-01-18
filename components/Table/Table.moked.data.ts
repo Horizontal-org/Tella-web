@@ -22,7 +22,7 @@ const randomId = () => namor.generate({ words: 0, numbers: 1 })
 const newReport = (): Report => {
   return {
     id: randomId(),
-    title: randomSentence(3),
+    name: randomSentence(3),
     reporter: {
       id: randomId(),
       name: randomSentence(2),

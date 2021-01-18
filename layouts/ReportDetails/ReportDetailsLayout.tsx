@@ -127,7 +127,7 @@ export const ReportDetailsLayout: FunctionComponent<Props> = ({ report, onDelete
           <button type="button">
             <MdClose className="text-gray-300" />
           </button>
-          <h2 className="text-gray-500 font-bold px-4">{report.title}</h2>
+          <h2 className="text-gray-500 font-bold px-4">{report.name}</h2>
         </div>
         <div className="flex space-x-2">
           <ButtonMenu openSide="left">

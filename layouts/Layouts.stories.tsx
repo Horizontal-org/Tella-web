@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-alert */
 import { storiesOf } from '@storybook/react'
 import { FakeReport } from '../moked/report'
@@ -11,8 +12,21 @@ export const parameters = {
 
 storiesOf('Layouts', module)
   .add('Report Lists', () => {
-    return <ReportListLayout reports={makeReportData(20)} />
+    return (
+      <ReportListLayout
+        loadReports={(requestQuery) => console.log({ requestQuery })}
+        onDelete={(toDelete) => console.log({ toDelete })}
+        onOpenReport={(toOpen) => console.log({ toOpen })}
+        reports={makeReportData(20)}
+      />
+    )
   })
   .add('Report Details', () => {
-    return <ReportDetailsLayout report={FakeReport} />
+    return (
+      <ReportDetailsLayout
+        onClose={() => console.log('Close report preview')}
+        onDelete={(report, file) => console.log(`Delete ${file.src.name} from ${report.name}`)}
+        report={FakeReport}
+      />
+    )
   })
