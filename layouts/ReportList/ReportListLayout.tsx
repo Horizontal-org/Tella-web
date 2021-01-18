@@ -69,8 +69,8 @@ export const ReportListLayout: FunctionComponent<Props> = ({
         <div>
           <div className="flex h-10 space-x-2 mb-2 p-2">
             {selectedReports.length === 0 && (
-              <form onSubmit={search}>
-                <SearchInput ref={searchInput} />
+              <form onSubmit={search} className="flex">
+                <SearchInput ref={searchInput} defaultValue={currentReportQuery.filter?.byName} />
               </form>
             )}
             {selectedReports.length > 0 && (
