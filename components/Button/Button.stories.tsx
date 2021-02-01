@@ -1,6 +1,37 @@
+import { CSSProperties } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Button } from './Button'
+import { MdRemoveRedEye } from '@react-icons/all-files/md/MdRemoveRedEye'
 
-storiesOf('Button', module)
-  .add('with text', () => <Button>Hello Button</Button>)
-  .add('with some emoji', () => <Button>😀 😎 👍 💯</Button>)
+import { Button, btnType } from './Button'
+
+const titleStyle: CSSProperties = {
+  fontSize: '27px',
+  fontWeight: 500,
+  color: '#666',
+}
+
+storiesOf('Buttons', module)
+  .add('Primary Buttons', () => (
+    <div className="flex flex-col items-start">
+      <h3 style={titleStyle} className="text-xl py-4">
+        Primary Button
+      </h3>
+      <div className="flex items-start space-x-4 ">
+        <Button text="Preview" icon={<MdRemoveRedEye />} />
+        <Button text="..." />
+        <Button text="Preview" icon={<MdRemoveRedEye />} disabled />
+      </div>
+    </div>
+  ))
+  .add('Secondary Buttons', () => (
+    <div className="flex flex-col items-start">
+      <h3 style={titleStyle} className="text-xl py-4">
+        Secondary Button
+      </h3>
+      <div className="flex items-start space-x-4 ">
+        <Button type={btnType.Secondary} text="Preview" icon={<MdRemoveRedEye />} />
+        <Button type={btnType.Secondary} text="..." />
+        <Button type={btnType.Secondary} text="Preview" icon={<MdRemoveRedEye />} disabled />
+      </div>
+    </div>
+  ))
