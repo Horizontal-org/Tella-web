@@ -37,3 +37,6 @@ yarn-error.log*
 # storybook
 /.out/
 build-storybook.log
+
+# user content folder
+/data

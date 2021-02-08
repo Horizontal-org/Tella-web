@@ -28,12 +28,15 @@
   },
   "dependencies": {
     "@fontsource/open-sans": "^4.0.1",
+    "@improbable-eng/grpc-web-node-http-transport": "^0.13.0",
     "@react-icons/all-files": "^4.1.0",
     "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.1.10",
     "@tailwindcss/aspect-ratio": "^0.2.0",
+    "@tailwindcss/postcss7-compat": "^2.0.3",
     "autoprefixer": "^9",
     "classnames": "^2.2.6",
+    "express": "^4.17.1",
     "filesize.js": "^2.0.0",
     "moment": "^2.29.1",
     "namor": "^2.0.2",
@@ -42,8 +45,7 @@
     "postcss-import": "^12.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-table": "^7.6.2",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "react-table": "^7.6.2"
   },
   "devDependencies": {
     "@testing-library/dom": "^7.28.1",
