@@ -6,7 +6,7 @@ type Props = {
   env: EnvironmentObj
 }
 
-export const ReportInformation: FunctionComponent<Props> = ({ file, device, env }) => (
+export const VerificationInformatation: FunctionComponent<Props> = ({ file, device, env }) => (
   <>
     <h3 className="text-base font-bold text-gray-500 py-3">Verification Information</h3>
     <div className="">
