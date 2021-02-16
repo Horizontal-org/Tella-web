@@ -1,7 +1,13 @@
 import ReactNode from 'react'
 
 export interface FileObj {
-  filePath?: string,
-  fileHash?: int,
-  fileModified?: string,
+
+}
+
+export interface DeviceObj {
+
+}
+
+export interface EnvironmentObj {
+
 }
