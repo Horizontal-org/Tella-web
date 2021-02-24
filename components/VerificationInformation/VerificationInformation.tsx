@@ -1,9 +1,9 @@
 import { FunctionComponent } from 'react'
 
 type Props = {
-  file: FileObj,
-  device: DeviceObj,
-  env: EnvironmentObj
+  file?: FileObj,
+  device?: DeviceObj,
+  env?: EnvironmentObj
 }
 
 export const VerificationInformation: FunctionComponent<Props> = ({ file, device, env }) => (
