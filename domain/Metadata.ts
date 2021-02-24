@@ -4,7 +4,6 @@ export interface FileObj {
   path?: string
   hash?: int
   date?: Date
-
 }
 
 export interface DeviceObj {
