@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react'
 import { FileObj, DeviceObj, EnvironmentObj, Location } from '../../domain/Metadata'
+import { Map } from './Map'
 
 type Props = {
   file?: FileObj
@@ -13,8 +14,11 @@ export const VerificationInformation: FunctionComponent<Props> = ({
   env = {},
 }) => (
   <>
-    <h3 className="text-base font-bold text-gray-500 py-3">File Information</h3>
-    <div className="text-base font-bold text-gray-500">
+    <h3 className="text-center font-bold text-gray-500 py-3">File Information</h3>
+    <div>
+      <Map location={env.location}/>
+    </div>
+    <div className="text-base font-bold text-gray-500 overflow-auto">
       <div className="py-3">
         <span>File</span>
       </div>
