@@ -6,7 +6,6 @@ import {
 } from "react-openlayers";
 import * as olProj from 'ol/proj';
 import { FileObj, DeviceObj, EnvironmentObj, Location } from '../../domain/Metadata'
-import { OpenMap } from './OpenMap'
 
 type Props = {
   file?: FileObj,
