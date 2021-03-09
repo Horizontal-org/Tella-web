@@ -24,8 +24,8 @@ export const DeviceMokedData: DeviceObj = {
 export const LocationMokedData: Location = {
   "Location accuracy": "92.9",
   "Location altitude": "0",
-  "Location latitude": "-31.8250154",
-  "Location longitude": "-64.4297871",
+  latitude: -31.8250154,
+  longitude: -64.4297871,
   "Location timestamp": "1611151983751",
 }
 
