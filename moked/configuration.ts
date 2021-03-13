@@ -1,15 +1,13 @@
-import { Lock, Method, Camouflage, CrashReport, Configuration, ConfigurationJSON } from '../domain/Configuration'
+import { Configuration } from '../proto/configuration'
 
-export const MokedJSON : ConfigurationJSON = {
-  configuration: {
-    name: "test json file",
-    about: "This is the about section",
-    lock: "PIN",
-    method: "DOWNLOAD",
-    camouflage: "CAMERA",
-    crashReport: {
-      share: false,
-      changeable: false
-    }
+export const MokedConfiguration : Configuration = {
+  name: "test json file",
+  about: "This is the about section",
+  lock: 0,
+  method: 0,
+  camouflage: 0,
+  crashReport: {
+    share: false,
+    changeable: false
   }
 }
