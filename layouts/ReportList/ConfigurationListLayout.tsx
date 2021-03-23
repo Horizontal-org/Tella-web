@@ -15,7 +15,6 @@ import { ButtonMenu } from '../../components/ButtonMenu/ButtonMenu'
 import { ButtonOption } from '../../components/ButtonMenu/ButtonOption'
 import { ReportsQuery } from '../../domain/ReportQuery'
 import { SearchInput } from '../../components/Inputs/SearchInput/SearchInput'
-import { Preview } from '../../components/Button/Button'
 
 type Props = {
   reports: Report[]

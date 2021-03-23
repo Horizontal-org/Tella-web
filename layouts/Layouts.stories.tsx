@@ -6,6 +6,7 @@ import { makeReportData } from '../components/Table/Table.moked.data'
 import { ReportDetailsLayout } from './ReportDetails/ReportDetailsLayout'
 import { ReportListLayout } from './ReportList/ReportListLayout'
 import { ConfigurationListLayout } from './ReportList/ConfigurationListLayout'
+import { AppLockComponentLayout } from './ReportList/AppLockComponentLayout'
 
 export const parameters = {
   layout: 'fullscreen',
@@ -40,4 +41,8 @@ storiesOf('Layouts', module)
         reports={makeReportData(20)}
       />
     )
+  })
+
+  .add('App Lock', () => {
+    return <AppLockComponentLayout />
   })
