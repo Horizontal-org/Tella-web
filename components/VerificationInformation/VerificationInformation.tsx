@@ -1,16 +1,11 @@
 import { FunctionComponent } from 'react'
-import {
-  interaction, layer, custom, control, //name spaces
-  Interactions, Overlays, Controls,     //group
-  Map, Layers, Overlay, Util, MarkerStyle    //objects
-} from "react-openlayers";
-import * as olProj from 'ol/proj';
-import { FileObj, DeviceObj, EnvironmentObj, Location } from '../../domain/Metadata'
+import { File, Device, Environment, Location } from '../../domain/Metadata'
+import { VerificationMap } from './VerificationMap'
 
 type Props = {
-  file?: FileObj,
-  device?: DeviceObj,
-  env?: EnvironmentObj,
+  file?: File,
+  device?: Device,
+  env?: Environment,
   location?: Location
 }
 
@@ -22,13 +17,7 @@ export const VerificationInformation: FunctionComponent<Props> = ({
 }) => (
   <>
     <h3 className="text-center font-bold text-gray-500 py-3">File Information</h3>
-    <div>
-      <Map view={{center: olProj.default.fromLonLat([location.longitude,location.latitude]), zoom: 5}}>
-          <Layers>
-            <layer.Tile/>
-          </Layers>
-      </Map>
-      </div>
+    {location && <VerificationMap longitude={location.longitude} latitude={location.latitude}/>}
     <div className="text-base font-bold text-gray-500 overflow-auto">
       <div className="py-3">
         <span>File</span>

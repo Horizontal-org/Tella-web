@@ -1,12 +1,12 @@
 import ReactNode from 'react'
 
-export interface FileObj {
+export interface File {
   path?: string
   hash?: int
   date?: Date
 }
 
-export interface DeviceObj {
+export interface Device {
   manufacturer?: string
   hardware?: string
   deviceId?: int
@@ -28,7 +28,7 @@ export interface Location {
   timestamp: int
 }
 
-export interface EnvironmentObj {
+export interface Environment {
   location?: Location
   locationProvider?: string
   speed?: float
