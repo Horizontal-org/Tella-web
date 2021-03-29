@@ -6,7 +6,8 @@ import { makeReportData, makeConfigurationData } from '../components/Table/Table
 import { ReportDetailsLayout } from './ReportDetails/ReportDetailsLayout'
 import { ReportListLayout } from './ReportList/ReportListLayout'
 import { ConfigurationListLayout } from './ConfigurationList/ConfigurationListLayout'
-import { AppLockComponentLayout } from './ReportList/AppLockComponentLayout'
+import { CamouflageLayout } from './Camouflage/CamouflageLayout'
+import { AppLockComponentLayout } from './AppLockComponent/AppLockComponentLayout'
 
 export const parameters = {
   layout: 'fullscreen',
@@ -43,6 +44,10 @@ storiesOf('Layouts', module)
     )
   })
 
-  .add('App Lock', () => {
+  .add('AppLock Component', () => {
     return <AppLockComponentLayout />
+  })
+
+  .add('Camouflage', () => {
+    return <CamouflageLayout />
   })

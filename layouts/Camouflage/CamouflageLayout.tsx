@@ -1,6 +1,6 @@
-import { CSSProperties, FormEvent, FunctionComponent, useEffect, useRef, useState } from 'react'
+import { CSSProperties, FunctionComponent } from 'react'
 
-import { AppLockComponent } from '../../components/ReportInformation/AppLockComponent'
+import { Camouflage } from '../../components/Camouflage/Camouflage'
 
 const titleStyle: CSSProperties = {
   fontSize: '25px',
@@ -32,17 +32,17 @@ const bottomStyle: CSSProperties = {
   marginTop: '80px',
 }
 
-export const AppLockComponentLayout: FunctionComponent = () => {
+export const CamouflageLayout: FunctionComponent = () => {
   return (
     <>
-      <p style={titleStyle}> App Lock </p>
-      <p style={subtitleStyle}> What lock(s) should be available to users? </p>
+      <p style={titleStyle}> Camouflage </p>
+      <p style={subtitleStyle}> What camouflage option(s) should be available to users? </p>
       <div className="flex flex-row justify-center gap-10">
-        <AppLockComponent />
-        <AppLockComponent />
-        <AppLockComponent />
+        <Camouflage />
+        <Camouflage />
+        <Camouflage />
       </div>
-      <p style={bottomStyle}> The user will be able to set a Pattern or a PIN as their app lock.</p>
+      <p style={bottomStyle}> Select at least one option above.</p>
     </>
   )
 }
