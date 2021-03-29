@@ -1,4 +1,12 @@
-import { FormEvent, FunctionComponent, useEffect, useRef, useState } from 'react'
+import {
+  Dispatch,
+  FormEvent,
+  FunctionComponent,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { MdOpenInNew } from '@react-icons/all-files/md/MdOpenInNew'
 import { MdRemoveRedEye } from '@react-icons/all-files/md/MdRemoveRedEye'
 import { MdSave } from '@react-icons/all-files/md/MdSave'
@@ -7,18 +15,19 @@ import { btnType, Button } from '../../components/Button/Button'
 import { ReportBar } from '../../components/ReportBar/ReportBar'
 import { SidebarLayout } from '../../components/Sidebar/SidebarLayout'
 import { Table } from '../../components/Table/Table'
+import { Item } from '../../domain/Item'
 import { Report } from '../../domain/Report'
 import { TopMenuMokedData, BottomMenuMokedData } from '../../moked/menu'
 import { MainLayout } from '../Main/MainLayout'
 import { REPORT_COLUMNS } from '../../domain/ReportTableColumns'
 import { ButtonMenu } from '../../components/ButtonMenu/ButtonMenu'
 import { ButtonOption } from '../../components/ButtonMenu/ButtonOption'
-import { ReportsQuery } from '../../domain/ReportQuery'
+import { ItemQuery } from '../../domain/ItemQuery'
 import { SearchInput } from '../../components/Inputs/SearchInput/SearchInput'
 
 type Props = {
   reports: Report[]
-  loadReports: (reportsQuery: ReportsQuery) => void
+  loadReports: (itemQuery: ItemQuery) => void
   onDelete: (reports: Report[]) => void
   onOpenReport: (report: Report) => void
 }
@@ -31,7 +40,7 @@ export const ReportListLayout: FunctionComponent<Props> = ({
 }) => {
   const [currentReport, setCurrentReport] = useState<Report | undefined>()
   const [selectedReports, setSelectedReports] = useState<Report[]>([])
-  const [currentReportQuery, setReportQuery] = useState<ReportsQuery>({
+  const [currentReportQuery, setReportQuery] = useState<ItemQuery>({
     pagination: {
       page: 1,
       total: 1,
@@ -107,8 +116,8 @@ export const ReportListLayout: FunctionComponent<Props> = ({
           <Table
             columns={REPORT_COLUMNS}
             data={reports}
-            reportQuery={currentReportQuery}
-            onSelection={setSelectedReports}
+            itemQuery={currentReportQuery}
+            onSelection={setSelectedReports as Dispatch<SetStateAction<Item[]>>}
             onFetch={setReportQuery}
           />
         </div>
@@ -116,7 +125,7 @@ export const ReportListLayout: FunctionComponent<Props> = ({
       leftbar={<SidebarLayout topMenu={TopMenuMokedData} bottomMenu={BottomMenuMokedData} />}
       rightbar={<ReportBar report={currentReport} />}
       onClosePreview={() => setCurrentReport(undefined)}
-      currentReport={currentReport}
+      currentItem={currentReport}
     />
   )
 }

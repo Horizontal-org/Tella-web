@@ -1,4 +1,5 @@
 import namor from 'namor'
+import { Configuration } from '../../domain/Configuration'
 import { Report } from '../../domain/Report'
 import { FilesMokedData } from '../../moked/files'
 
@@ -32,6 +33,19 @@ const newReport = (): Report => {
   }
 }
 
+const newConfiguration = (): Configuration => {
+  return {
+    id: randomId(),
+    name: randomSentence(3),
+    date: Date.now(),
+    connections: Math.round(Math.random() * 100),
+  }
+}
+
 export const makeReportData = (amount: number): Report[] => {
   return range(amount).map(newReport)
+}
+
+export const makeConfigurationData = (amount: number): Configuration[] => {
+  return range(amount).map(newConfiguration)
 }

@@ -5,7 +5,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import { storiesOf } from '@storybook/react'
-import { ReportsQuery } from '../../domain/ReportQuery'
+import { ItemQuery } from '../../domain/ItemQuery'
 import { REPORT_COLUMNS } from '../../domain/ReportTableColumns'
 import { NEW_REPORT_COLUMNS } from '../../moked/tableActions'
 import { Table } from './Table'
@@ -20,7 +20,7 @@ storiesOf('Tables', module)
     )
   })
   .add('Add callback actions', () => {
-    const showMessage = (rq: ReportsQuery) => {
+    const showMessage = (rq: ItemQuery) => {
       const type = rq.sort[0] ? rq.sort[0].id : 'default'
       const order = rq.sort[0] ? (rq.sort[0].desc ? 'descendent' : 'ascendent') : ''
       alert(`Sorting by ${type} ${order}`)

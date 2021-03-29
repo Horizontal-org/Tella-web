@@ -1,5 +1,5 @@
-import { CSSProperties } from 'react'
-import { FormEvent, FunctionComponent, useEffect, useRef, useState } from 'react'
+import { CSSProperties, FormEvent, FunctionComponent, useEffect, useRef, useState } from 'react'
+
 import { AppLockComponent } from '../../components/ReportInformation/AppLockComponent'
 
 const titleStyle: CSSProperties = {
