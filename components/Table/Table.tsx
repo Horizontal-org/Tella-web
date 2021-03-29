@@ -10,15 +10,15 @@ import cn from 'classnames'
 import { MdExpandMore } from '@react-icons/all-files/md/MdExpandMore'
 import { MdExpandLess } from '@react-icons/all-files/md/MdExpandLess'
 import { IndeterminateCheckbox } from './IndeterminateCheckbox'
-import { Report } from '../../domain/Report'
-import { ReportsQuery } from '../../domain/ReportQuery'
+import { Item } from '../../domain/Item'
+import { ItemQuery } from '../../domain/ItemQuery'
 
 type Props = {
   columns: Array<Column<{}>>
-  data: Array<Report>
-  onSelection?: (reports: Report[]) => void
-  onFetch?: (reportQuery: ReportsQuery) => void
-  reportQuery?: ReportsQuery
+  data: Array<Item>
+  onSelection?: (items: Item[]) => void
+  onFetch?: (itemQuery: ItemQuery) => void
+  itemQuery?: ItemQuery
 }
 
 export const Table: FunctionComponent<Props> = ({
@@ -26,7 +26,7 @@ export const Table: FunctionComponent<Props> = ({
   data,
   onSelection,
   onFetch,
-  reportQuery,
+  itemQuery,
 }: Props) => {
   const tColumns = useMemo(() => columns, [])
   const tData = useMemo(() => data, [])
@@ -46,7 +46,7 @@ export const Table: FunctionComponent<Props> = ({
       manualSortBy: true,
       autoResetPage: false,
       autoResetSortBy: false,
-      pageCount: reportQuery.pagination.total / reportQuery.pagination.size,
+      pageCount: itemQuery.pagination.total / itemQuery.pagination.size,
     },
     useSortBy,
     useRowSelect,
@@ -69,16 +69,16 @@ export const Table: FunctionComponent<Props> = ({
   )
 
   useEffect(() => {
-    const r = selectedFlatRows.map((d) => d.original) as Report[]
+    const r = selectedFlatRows.map((d) => d.original) as Item[]
     onSelection(r)
   }, [selectedRowIds, onSelection])
 
   useEffect(() => {
     onFetch({
-      ...reportQuery,
+      ...itemQuery,
       sort: sortBy,
       pagination: {
-        ...reportQuery.pagination,
+        ...itemQuery.pagination,
         size: pageSize,
         page: pageIndex,
       },
@@ -153,5 +153,5 @@ export const Table: FunctionComponent<Props> = ({
 Table.defaultProps = {
   onSelection: () => null,
   onFetch: () => null,
-  reportQuery: { filter: {}, sort: [], pagination: { page: 1, total: 1, size: 1 } },
+  itemQuery: { filter: {}, sort: [], pagination: { page: 1, total: 1, size: 1 } },
 }

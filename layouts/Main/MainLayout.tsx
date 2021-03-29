@@ -4,7 +4,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import cn from 'classnames'
 import { Title, SubTitle } from '../../components/Headers/Headers'
-import { Report } from '../../domain/Report'
+import { Item } from '../../domain/Item'
 
 type Props = {
   title?: string
@@ -12,7 +12,7 @@ type Props = {
   leftbar?: React.ReactNode
   rightbar?: React.ReactNode
   content: React.ReactNode
-  currentReport?: Report
+  currentItem?: Item
   onClosePreview?: () => void
 }
 
@@ -22,7 +22,7 @@ export const MainLayout: FunctionComponent<Props> = ({
   rightbar,
   title,
   subtitle,
-  currentReport,
+  currentItem,
   onClosePreview,
 }) => {
   const [leftSidebarOpen, changeLeftSidebarOpenStatus] = useState(true)
@@ -32,8 +32,8 @@ export const MainLayout: FunctionComponent<Props> = ({
   const toggleRightSideBar = () => changeRightSidebarOpenStatus(!rightSidebarOpen)
 
   useEffect(() => {
-    if (currentReport) changeRightSidebarOpenStatus(true)
-  }, [currentReport])
+    if (currentItem) changeRightSidebarOpenStatus(true)
+  }, [currentItem])
 
   useEffect(() => {
     if (rightSidebarOpen === false && onClosePreview) {
@@ -77,7 +77,7 @@ export const MainLayout: FunctionComponent<Props> = ({
             </div>
           )}
           <div className="flex-1">{content}</div>
-          {currentReport && rightbar && (
+          {currentItem && rightbar && (
             <div>
               <img
                 src="/images/handbar-toggle.png"

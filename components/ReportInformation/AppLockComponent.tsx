@@ -1,5 +1,4 @@
-import { FunctionComponent } from 'react'
-import { CSSProperties } from 'react'
+import { FunctionComponent, CSSProperties } from 'react'
 
 const imageStyle: CSSProperties = {
   marginTop: '13px',

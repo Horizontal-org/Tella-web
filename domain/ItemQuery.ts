@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { SortingRule } from 'react-table'
 
-export type ReportsQuery = {
+export type ItemQuery = {
   pagination: {
     page: number
     size: number

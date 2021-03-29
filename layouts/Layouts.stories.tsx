@@ -2,10 +2,10 @@
 /* eslint-disable no-alert */
 import { storiesOf } from '@storybook/react'
 import { FakeReport } from '../moked/report'
-import { makeReportData } from '../components/Table/Table.moked.data'
+import { makeReportData, makeConfigurationData } from '../components/Table/Table.moked.data'
 import { ReportDetailsLayout } from './ReportDetails/ReportDetailsLayout'
 import { ReportListLayout } from './ReportList/ReportListLayout'
-import { ConfigurationListLayout } from './ReportList/ConfigurationListLayout'
+import { ConfigurationListLayout } from './ConfigurationList/ConfigurationListLayout'
 import { AppLockComponentLayout } from './ReportList/AppLockComponentLayout'
 
 export const parameters = {
@@ -35,10 +35,10 @@ storiesOf('Layouts', module)
   .add('Configuration Lists', () => {
     return (
       <ConfigurationListLayout
-        loadReports={(requestQuery) => console.log({ requestQuery })}
+        loadConfigurations={(requestQuery) => console.log({ requestQuery })}
         onDelete={(toDelete) => console.log({ toDelete })}
-        onOpenReport={(toOpen) => console.log({ toOpen })}
-        reports={makeReportData(20)}
+        onOpenConfiguration={(toOpen) => console.log({ toOpen })}
+        configs={makeConfigurationData(10)}
       />
     )
   })
