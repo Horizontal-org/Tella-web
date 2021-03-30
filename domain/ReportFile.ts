@@ -13,5 +13,6 @@ export type ReportFile = {
   }
   size: number
   thumbnail?: string
+  newtype?: number
   type: keyof typeof ReportFileType
 }
