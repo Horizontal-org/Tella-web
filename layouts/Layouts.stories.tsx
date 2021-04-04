@@ -8,6 +8,8 @@ import { ReportListLayout } from './ReportList/ReportListLayout'
 import { ConfigurationListLayout } from './ConfigurationList/ConfigurationListLayout'
 import { CamouflageLayout } from './Camouflage/CamouflageLayout'
 import { AppLockComponentLayout } from './AppLockComponent/AppLockComponentLayout'
+import { ConfigurationSettingsLayout } from './ConfigurationSettings/ConfigurationSettings'
+import { FakeConfig } from '../moked/config'
 
 export const parameters = {
   layout: 'fullscreen',
@@ -32,6 +34,9 @@ storiesOf('Layouts', module)
         report={FakeReport}
       />
     )
+  })
+  .add('Configuration Settings', () => {
+    return <ConfigurationSettingsLayout config={FakeConfig} />
   })
   .add('Configuration Lists', () => {
     return (

@@ -34,7 +34,7 @@ const bottomStyle: CSSProperties = {
 
 export const AppLockComponentLayout: FunctionComponent = () => {
   return (
-    <>
+    <div className="block">
       <p style={titleStyle}> App Lock </p>
       <p style={subtitleStyle}> What lock(s) should be available to users? </p>
       <div className="flex flex-row justify-center gap-10">
@@ -43,6 +43,6 @@ export const AppLockComponentLayout: FunctionComponent = () => {
         <AppLockComponent />
       </div>
       <p style={bottomStyle}> The user will be able to set a Pattern or a PIN as their app lock.</p>
-    </>
+    </div>
   )
 }
