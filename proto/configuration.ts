@@ -261,7 +261,7 @@ export const Configuration = {
     return message
   },
 
-   fromJSON(object: any): Configuration {
+  fromJSON(object: any): Configuration {
     const message = { ...baseConfiguration } as Configuration
     if (object.name !== undefined && object.name !== null) {
       message.name = String(object.name)
