@@ -1,10 +1,10 @@
 import { FunctionComponent, useState, useEffect } from 'react'
+import QRCode from 'qrcode'
 import { Configuration } from '../../proto/configuration'
 import { Button } from '../Button/Button'
-import QRCode from 'qrcode'
 
 type Props = {
-  configuration: Configuration,
+  configuration: Configuration
 }
 
 export const ConfigurationDetails: FunctionComponent<Props> = ({ configuration }) => {
@@ -26,8 +26,8 @@ export const ConfigurationDetails: FunctionComponent<Props> = ({ configuration }
     <div>
       <h3 className="text-center font-bold text-gray-500 py-3">Configuration JSON</h3>
       <div>
-      <Button text="Generate QR Code" onClick={() => generateQRCode()}/>
-      {imageUrl ? <img src={imageUrl} alt="configuration QR code"/> : null}
+        <Button text="Generate QR Code" onClick={() => generateQRCode()} />
+        {imageUrl ? <img src={imageUrl} alt="configuration QR code" /> : null}
       </div>
     </div>
   )
