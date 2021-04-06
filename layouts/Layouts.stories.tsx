@@ -8,6 +8,7 @@ import { ReportListLayout } from './ReportList/ReportListLayout'
 import { ConfigurationListLayout } from './ConfigurationList/ConfigurationListLayout'
 import { CamouflageLayout } from './Camouflage/CamouflageLayout'
 import { AppLockComponentLayout } from './AppLockComponent/AppLockComponentLayout'
+import { ConfigSelectComponentLayout } from './ConfigSelect/ConfigSelectLayout'
 
 export const parameters = {
   layout: 'fullscreen',
@@ -50,4 +51,8 @@ storiesOf('Layouts', module)
 
   .add('Camouflage', () => {
     return <CamouflageLayout />
+  })
+
+  .add('ConfigSelect Component', () => {
+    return <ConfigSelectComponentLayout />
   })
