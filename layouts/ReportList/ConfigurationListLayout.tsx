@@ -3,7 +3,7 @@ import { MdOpenInNew } from '@react-icons/all-files/md/MdOpenInNew'
 import { MdRemoveRedEye } from '@react-icons/all-files/md/MdRemoveRedEye'
 import { MdSave } from '@react-icons/all-files/md/MdSave'
 import { MdDelete } from '@react-icons/all-files/md/MdDelete'
-import { btnType, Button } from '../../components/Button/Button'
+import { btnType, Button, Preview } from '../../components/Button/Button'
 import { ReportBar } from '../../components/ReportBar/ReportBar'
 import { SidebarLayout } from '../../components/Sidebar/SidebarLayout'
 import { Table } from '../../components/Table/Table'
@@ -15,7 +15,6 @@ import { ButtonMenu } from '../../components/ButtonMenu/ButtonMenu'
 import { ButtonOption } from '../../components/ButtonMenu/ButtonOption'
 import { ReportsQuery } from '../../domain/ReportQuery'
 import { SearchInput } from '../../components/Inputs/SearchInput/SearchInput'
-import { Preview } from '../../components/Button/Button'
 
 type Props = {
   reports: Report[]
