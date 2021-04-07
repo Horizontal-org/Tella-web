@@ -10,6 +10,7 @@ import { CamouflageLayout } from './Camouflage/CamouflageLayout'
 import { AppLockComponentLayout } from './AppLockComponent/AppLockComponentLayout'
 import { ConfigurationSettingsLayout } from './ConfigurationSettings/ConfigurationSettings'
 import { FakeConfig } from '../moked/config'
+import { ConfigSelectComponentLayout } from './ConfigSelect/ConfigSelectLayout'
 
 export const parameters = {
   layout: 'fullscreen',
@@ -55,4 +56,8 @@ storiesOf('Layouts', module)
 
   .add('Camouflage', () => {
     return <CamouflageLayout />
+  })
+
+  .add('ConfigSelect Component', () => {
+    return <ConfigSelectComponentLayout />
   })
