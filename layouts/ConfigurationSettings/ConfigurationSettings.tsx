@@ -11,6 +11,9 @@ import { TopBar } from '../../components/TopBar/TopBar'
 import { Configuration } from '../../domain/Configuration'
 import { ConfigurationInformation } from '../../components/ConfigurationInformation/ConfigurationInformation'
 import { AppLockComponentLayout } from '../AppLockComponent/AppLockComponentLayout'
+import { LeftCollapsingSidebar } from '../../components/CollapsingSidebar/LeftCollapsingSidebar'
+import { MainContent } from '../../components/MainContent/MainContent'
+import { RightCollapsingSidebar } from '../../components/CollapsingSidebar/RightCollapsingSidebar'
 
 type Props = {
   config: Configuration
@@ -25,16 +28,9 @@ export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }
 
   return (
     <div className="flex flex-grow min-h-screen">
-      <div
-        className={cn(
-          'w-64 border-r px-6 pt-20 border-gray-100 transition-all transform duration-300 h-screen overflow-y-scroll fixed left-0 top-0',
-          {
-            '-translate-x-64': !leftSidebarOpen,
-          }
-        )}
-      >
+      <LeftCollapsingSidebar cond={!leftSidebarOpen}>
         <ConfigurationInformation config={config} />
-      </div>
+      </LeftCollapsingSidebar>
 
       <div
         className={cn('flex flex-col flex-1 pt-20 transition-all duration-300 ease-in-out', {
@@ -64,10 +60,11 @@ export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }
           </div>
         </div>
 
-        <div id="content" className="px-20 py-16 flex-1 flex">
+        <MainContent>
           <AppLockComponentLayout />
-        </div>
+        </MainContent>
       </div>
+
       <div
         className={cn(
           'w-64 border-l px-6 pt-20 border-gray-100 transition-all transform duration-300 h-screen overflow-y-scroll fixed right-0 top-0',
