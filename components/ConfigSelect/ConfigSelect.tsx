@@ -4,7 +4,7 @@ const imageStyle: CSSProperties = {
   height: '20px',
 }
 
-export const ConfigSelectComponent: FunctionComponent = () => {
+export const ConfigSelect: FunctionComponent = () => {
   return (
     <div className="fixed inset-y-1/3 inset-x-1/3">
       <p className="font-sans  font-bold text-xxxl"> Configuration </p>
