@@ -1,4 +1,4 @@
-import { CSSProperties, FunctionComponent } from 'react'
+import { FunctionComponent, CSSProperties, useEffect, useState } from 'react'
 
 import { AppLockComponent } from '../../components/AppLockComponent/AppLockComponent'
 
@@ -33,14 +33,33 @@ const bottomStyle: CSSProperties = {
 }
 
 export const AppLockComponentLayout: FunctionComponent = () => {
+  const [pattern, updatePattern] = useState(false)
+  const [pin, updatePin] = useState(false)
+  const [password, upadatePassword] = useState(false)
+
   return (
     <>
       <p style={titleStyle}> App Lock </p>
       <p style={subtitleStyle}> What lock(s) should be available to users? </p>
       <div className="flex flex-row justify-center gap-10">
-        <AppLockComponent />
-        <AppLockComponent />
-        <AppLockComponent />
+        <AppLockComponent
+          id={1}
+          type="Pattern"
+          description="Draw a simple pattern with your finger"
+          callback={updatePattern}
+        />
+        <AppLockComponent
+          id={2}
+          type="Pin"
+          description="The user enters 6 or more numbers"
+          callback={updatePin}
+        />
+        <AppLockComponent
+          id={3}
+          type="Password"
+          description="The user enters 6 or more letters or numbers"
+          callback={upadatePassword}
+        />
       </div>
       <p style={bottomStyle}> The user will be able to set a Pattern or a PIN as their app lock.</p>
     </>

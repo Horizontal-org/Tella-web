@@ -1,4 +1,4 @@
-import { CSSProperties, FunctionComponent } from 'react'
+import { FunctionComponent, CSSProperties, useEffect, useState } from 'react'
 
 import { Camouflage } from '../../components/Camouflage/Camouflage'
 
@@ -33,14 +33,33 @@ const bottomStyle: CSSProperties = {
 }
 
 export const CamouflageLayout: FunctionComponent = () => {
+  const [icon, updateIcon] = useState(false)
+  const [calculator, updateCalculator] = useState(false)
+  const [notepad, upadateNotepad] = useState(false)
+
   return (
     <>
       <p style={titleStyle}> Camouflage </p>
       <p style={subtitleStyle}> What camouflage option(s) should be available to users? </p>
       <div className="flex flex-row justify-center gap-10">
-        <Camouflage />
-        <Camouflage />
-        <Camouflage />
+        <Camouflage
+          id={1}
+          type="Icon"
+          description="The user picks a new name and icon"
+          callback={updateIcon}
+        />
+        <Camouflage
+          id={2}
+          type="Calculator"
+          description="The user enters their pin in a calculator"
+          callback={updateCalculator}
+        />
+        <Camouflage
+          id={3}
+          type="Notepad"
+          description="The user enters 6 or more letters or numbers"
+          callback={upadateNotepad}
+        />
       </div>
       <p style={bottomStyle}> Select at least one option above.</p>
     </>
