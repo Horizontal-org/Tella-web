@@ -13,12 +13,10 @@ export const ConfigurationDetails: FunctionComponent<Props> = ({ configuration }
   const generateQRCode = async () => {
     try {
       const val = Configuration.encode(configuration).finish()
-      console.log(val)
       const response = await QRCode.toDataURL([{ data: val, mode: 'byte' }])
       setImageUrl(response)
-      console.log(response)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   }
 
