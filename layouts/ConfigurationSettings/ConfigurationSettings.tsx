@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable no-nested-ternary */
 import React, { FunctionComponent, useState } from 'react'
 import cn from 'classnames'
 import { MdRemoveRedEye } from '@react-icons/all-files/md/MdRemoveRedEye'
@@ -14,14 +15,28 @@ import { AppLockComponentLayout } from '../AppLockComponent/AppLockComponentLayo
 import { LeftCollapsingSidebar } from '../../components/CollapsingSidebar/LeftCollapsingSidebar'
 import { MainContent } from '../../components/MainContent/MainContent'
 import { RightCollapsingSidebar } from '../../components/CollapsingSidebar/RightCollapsingSidebar'
+import { ToggleButtonsBar } from '../../components/ToggleButtonsBar/ToggleButtonsBar'
+import { ConfigSelect } from '../../components/ConfigSelect/ConfigSelect'
+import { CamouflageLayout } from '../Camouflage/CamouflageLayout'
 
 type Props = {
   config: Configuration
 }
 
+enum Mode {
+  BASE,
+  APPLOCK,
+  CAMOUFLAGE,
+}
+
 export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }) => {
+  const [mode, setMode] = useState(Mode.BASE)
   const [leftSidebarOpen, changeLeftSidebarOpneStatus] = useState(true)
   const [rightSidebarOpen, changeRightSidebarOpneStatus] = useState(true)
+
+  const setModeBase = () => setMode(Mode.BASE)
+  const setModeApplock = () => setMode(Mode.APPLOCK)
+  const setModeCamouflage = () => setMode(Mode.CAMOUFLAGE)
 
   const toggleLeftSideBar = () => changeLeftSidebarOpneStatus(!leftSidebarOpen)
   const toggleRightSideBar = () => changeRightSidebarOpneStatus(!rightSidebarOpen)
@@ -38,30 +53,16 @@ export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }
           'transform mr-64': rightSidebarOpen,
         })}
       >
-        <div id="slider-bar" className="flex px-4">
-          <div>
-            <img
-              src="/images/handbar-toggle.png"
-              alt="Toggle left sidebar"
-              className="cursor-pointer border-r my-2 py-1 pr-3"
-              onClick={toggleLeftSideBar}
-            />
-          </div>
-
-          <div className="flex-1 flex justify-between" />
-
-          <div>
-            <img
-              src="/images/handbar-toggle.png"
-              alt="Toggle right sidebar"
-              className="cursor-pointer transform rotate-180 border-r my-2 py-1 pr-3"
-              onClick={toggleRightSideBar}
-            />
-          </div>
-        </div>
+        <ToggleButtonsBar leftToggle={toggleLeftSideBar} rightToggle={toggleRightSideBar} />
 
         <MainContent>
-          <AppLockComponentLayout />
+          {mode === Mode.APPLOCK ? (
+            <AppLockComponentLayout goPrev={setModeBase} goNext={setModeCamouflage} />
+          ) : mode === Mode.CAMOUFLAGE ? (
+            <CamouflageLayout goPrev={setModeApplock} goNext={setModeBase} />
+          ) : (
+            <ConfigSelect appLockCB={setModeApplock} camouflageCB={setModeCamouflage} />
+          )}
         </MainContent>
       </div>
 

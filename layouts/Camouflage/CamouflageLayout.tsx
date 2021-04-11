@@ -1,6 +1,7 @@
-import { FunctionComponent, CSSProperties, useEffect, useState } from 'react'
+import { FunctionComponent, CSSProperties, useState } from 'react'
 
 import { Camouflage } from '../../components/Camouflage/Camouflage'
+import { NavigateButtonsBar } from '../../components/NavigateButtonsBar/NavigateButtonsBar'
 
 const titleStyle: CSSProperties = {
   fontSize: '25px',
@@ -32,13 +33,18 @@ const bottomStyle: CSSProperties = {
   marginTop: '80px',
 }
 
-export const CamouflageLayout: FunctionComponent = () => {
+type Props = {
+  goPrev: () => void
+  goNext: () => void
+}
+
+export const CamouflageLayout: FunctionComponent<Props> = ({ goPrev, goNext }) => {
   const [icon, updateIcon] = useState(false)
   const [calculator, updateCalculator] = useState(false)
   const [notepad, upadateNotepad] = useState(false)
 
   return (
-    <>
+    <div className="block w-auto">
       <p style={titleStyle}> Camouflage </p>
       <p style={subtitleStyle}> What camouflage option(s) should be available to users? </p>
       <div className="flex flex-row justify-center gap-10">
@@ -62,6 +68,7 @@ export const CamouflageLayout: FunctionComponent = () => {
         />
       </div>
       <p style={bottomStyle}> Select at least one option above.</p>
-    </>
+      <NavigateButtonsBar goPrev={goPrev} goNext={goNext} />
+    </div>
   )
 }

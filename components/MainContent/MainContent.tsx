@@ -4,7 +4,7 @@ import React, { FunctionComponent, PropsWithChildren } from 'react'
 type Props = any
 
 export const MainContent: FunctionComponent<PropsWithChildren<Props>> = ({ children }) => (
-  <div id="content" className="px-20 py-16 flex-1 flex">
+  <div id="content" className="px-20 py-16 flex-1 inline">
     {children}
   </div>
 )

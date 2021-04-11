@@ -1,6 +1,7 @@
 import { FunctionComponent, CSSProperties, useEffect, useState } from 'react'
 
 import { AppLockComponent } from '../../components/AppLockComponent/AppLockComponent'
+import { NavigateButtonsBar } from '../../components/NavigateButtonsBar/NavigateButtonsBar'
 
 const titleStyle: CSSProperties = {
   fontSize: '25px',
@@ -32,13 +33,18 @@ const bottomStyle: CSSProperties = {
   marginTop: '80px',
 }
 
-export const AppLockComponentLayout: FunctionComponent = () => {
+type Props = {
+  goPrev: () => void
+  goNext: () => void
+}
+
+export const AppLockComponentLayout: FunctionComponent<Props> = ({ goPrev, goNext }) => {
   const [pattern, updatePattern] = useState(false)
   const [pin, updatePin] = useState(false)
   const [password, upadatePassword] = useState(false)
 
   return (
-    <div className="block">
+    <div className="block w-auto">
       <p style={titleStyle}> App Lock </p>
       <p style={subtitleStyle}> What lock(s) should be available to users? </p>
       <div className="flex flex-row justify-center gap-10">
@@ -62,6 +68,7 @@ export const AppLockComponentLayout: FunctionComponent = () => {
         />
       </div>
       <p style={bottomStyle}> The user will be able to set a Pattern or a PIN as their app lock.</p>
+      <NavigateButtonsBar goPrev={goPrev} goNext={goNext} />
     </div>
   )
 }

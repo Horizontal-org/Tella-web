@@ -10,6 +10,7 @@ import { CamouflageLayout } from './Camouflage/CamouflageLayout'
 import { AppLockComponentLayout } from './AppLockComponent/AppLockComponentLayout'
 import { ConfigurationSettingsLayout } from './ConfigurationSettings/ConfigurationSettings'
 import { FakeConfig } from '../moked/config'
+import { CreateConfigPopup } from './CreateConfigPopup/CreateConfigPopup'
 
 export const parameters = {
   layout: 'fullscreen',
@@ -50,9 +51,13 @@ storiesOf('Layouts', module)
   })
 
   .add('AppLock Component', () => {
-    return <AppLockComponentLayout />
+    return <AppLockComponentLayout goPrev={() => undefined} goNext={() => undefined} />
   })
 
   .add('Camouflage', () => {
-    return <CamouflageLayout />
+    return <CamouflageLayout goPrev={() => undefined} goNext={() => undefined} />
+  })
+
+  .add('Create Config Popup', () => {
+    return <CreateConfigPopup createCB={() => undefined} />
   })
