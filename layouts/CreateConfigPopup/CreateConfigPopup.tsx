@@ -10,9 +10,9 @@ export const CreateConfigPopup: FunctionComponent<Props> = ({ disabled, createCB
   <>
     <NewButtonPopup disabled={disabled}>
       <div className="flex-start items-center">
-        <h4 className="text-2xl font-sans mt-4 ml-4 font-bold">New configuration</h4>
+        <h4 className="font-sans mt-4 ml-4 text-xl font-bold">New configuration</h4>
       </div>
-      <div className="mt-3 mx-4 text-xs justify-center">
+      <div className="mt-3 mx-4 text-sm justify-center">
         <p>
           Enter the name of the new configuration. This will only be visible internally, your users
           will never see it.
