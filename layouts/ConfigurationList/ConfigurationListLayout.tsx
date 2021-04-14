@@ -23,6 +23,7 @@ import { ItemQuery } from '../../domain/ItemQuery'
 import { SearchInput } from '../../components/Inputs/SearchInput/SearchInput'
 import { Configuration } from '../../domain/Configuration'
 import { Item } from '../../domain/Item'
+import { CreateConfigPopup } from '../CreateConfigPopup/CreateConfigPopup'
 
 type Props = {
   configs?: Configuration[]
@@ -76,6 +77,7 @@ export const ConfigurationListLayout: FunctionComponent<Props> = ({
       content={
         <div>
           <div className="flex h-10 space-x-2 mb-2 p-2">
+            <CreateConfigPopup createCB={() => undefined} />
             {selectedConfigurations.length === 0 && (
               <form onSubmit={search} className="flex">
                 <SearchInput
