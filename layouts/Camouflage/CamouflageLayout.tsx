@@ -1,7 +1,8 @@
-import { FunctionComponent, CSSProperties, useState } from 'react'
+import { FunctionComponent, CSSProperties } from 'react'
 
 import { Camouflage } from '../../components/Camouflage/Camouflage'
 import { NavigateButtonsBar } from '../../components/NavigateButtonsBar/NavigateButtonsBar'
+import { CamouflageChoice, Configuration } from '../../domain/Configuration'
 
 const titleStyle: CSSProperties = {
   fontSize: '25px',
@@ -34,37 +35,34 @@ const bottomStyle: CSSProperties = {
 }
 
 type Props = {
+  config: Configuration
   goPrev: () => void
   goNext: () => void
 }
 
-export const CamouflageLayout: FunctionComponent<Props> = ({ goPrev, goNext }) => {
-  const [icon, updateIcon] = useState(false)
-  const [calculator, updateCalculator] = useState(false)
-  const [notepad, upadateNotepad] = useState(false)
-
+export const CamouflageLayout: FunctionComponent<Props> = ({ config, goPrev, goNext }) => {
   return (
     <div className="block w-auto">
       <p style={titleStyle}> Camouflage </p>
       <p style={subtitleStyle}> What camouflage option(s) should be available to users? </p>
       <div className="flex flex-row justify-center gap-10">
         <Camouflage
-          id={1}
+          config={config}
+          id={CamouflageChoice.ICON}
           type="Icon"
           description="The user picks a new name and icon"
-          callback={updateIcon}
         />
         <Camouflage
-          id={2}
+          config={config}
+          id={CamouflageChoice.CALCULATOR}
           type="Calculator"
           description="The user enters their pin in a calculator"
-          callback={updateCalculator}
         />
         <Camouflage
-          id={3}
+          config={config}
+          id={CamouflageChoice.NOTEPAD}
           type="Notepad"
           description="The user enters 6 or more letters or numbers"
-          callback={upadateNotepad}
         />
       </div>
       <p style={bottomStyle}> Select at least one option above.</p>

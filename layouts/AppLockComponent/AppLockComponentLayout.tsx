@@ -1,7 +1,8 @@
-import { FunctionComponent, CSSProperties, useEffect, useState } from 'react'
+import { FunctionComponent, CSSProperties } from 'react'
 
 import { AppLockComponent } from '../../components/AppLockComponent/AppLockComponent'
 import { NavigateButtonsBar } from '../../components/NavigateButtonsBar/NavigateButtonsBar'
+import { AppLockChoice, Configuration } from '../../domain/Configuration'
 
 const titleStyle: CSSProperties = {
   fontSize: '25px',
@@ -34,37 +35,34 @@ const bottomStyle: CSSProperties = {
 }
 
 type Props = {
+  config: Configuration
   goPrev: () => void
   goNext: () => void
 }
 
-export const AppLockComponentLayout: FunctionComponent<Props> = ({ goPrev, goNext }) => {
-  const [pattern, updatePattern] = useState(false)
-  const [pin, updatePin] = useState(false)
-  const [password, upadatePassword] = useState(false)
-
+export const AppLockComponentLayout: FunctionComponent<Props> = ({ config, goPrev, goNext }) => {
   return (
     <div className="block w-auto">
       <p style={titleStyle}> App Lock </p>
       <p style={subtitleStyle}> What lock(s) should be available to users? </p>
       <div className="flex flex-row justify-center gap-10">
         <AppLockComponent
-          id={1}
+          config={config}
+          id={AppLockChoice.PATTERN}
           type="Pattern"
           description="Draw a simple pattern with your finger"
-          callback={updatePattern}
         />
         <AppLockComponent
-          id={2}
+          config={config}
+          id={AppLockChoice.PIN}
           type="Pin"
           description="The user enters 6 or more numbers"
-          callback={updatePin}
         />
         <AppLockComponent
-          id={3}
+          config={config}
+          id={AppLockChoice.PASSWORD}
           type="Password"
           description="The user enters 6 or more letters or numbers"
-          callback={upadatePassword}
         />
       </div>
       <p style={bottomStyle}> The user will be able to set a Pattern or a PIN as their app lock.</p>

@@ -6,8 +6,6 @@ import { makeReportData, makeConfigurationData } from '../components/Table/Table
 import { ReportDetailsLayout } from './ReportDetails/ReportDetailsLayout'
 import { ReportListLayout } from './ReportList/ReportListLayout'
 import { ConfigurationListLayout } from './ConfigurationList/ConfigurationListLayout'
-import { CamouflageLayout } from './Camouflage/CamouflageLayout'
-import { AppLockComponentLayout } from './AppLockComponent/AppLockComponentLayout'
 import { ConfigurationSettingsLayout } from './ConfigurationSettings/ConfigurationSettings'
 import { FakeConfig } from '../moked/config'
 import { CreateConfigPopup } from './CreateConfigPopup/CreateConfigPopup'
@@ -48,14 +46,6 @@ storiesOf('Layouts', module)
         configs={makeConfigurationData(10)}
       />
     )
-  })
-
-  .add('AppLock Component', () => {
-    return <AppLockComponentLayout goPrev={() => undefined} goNext={() => undefined} />
-  })
-
-  .add('Camouflage', () => {
-    return <CamouflageLayout goPrev={() => undefined} goNext={() => undefined} />
   })
 
   .add('Create Config Popup', () => {

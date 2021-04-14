@@ -1,5 +1,7 @@
+/* eslint-disable no-param-reassign */
 import { FunctionComponent, CSSProperties, useEffect, useState } from 'react'
 import cn from 'classnames'
+import { Configuration } from '../../domain/Configuration'
 
 const imageStyle: CSSProperties = {
   marginTop: '13px',
@@ -7,24 +9,17 @@ const imageStyle: CSSProperties = {
 }
 
 type Props = {
+  config: Configuration
   id: number
   type: string
   description: string
-  callback: (id: boolean) => void
 }
 
-export const Camouflage: FunctionComponent<Props> = ({
-  id = 0,
-  type = 'Icon',
-  description = 'The user picks a new name and icon',
-  callback,
-}) => {
-  const [selected, updateSelected] = useState(false)
+export const Camouflage: FunctionComponent<Props> = ({ config, id, type, description }) => {
+  const [selected, updateSelected] = useState(config.camouflage[id])
 
   useEffect(() => {
-    // console.log(type)
-    // console.log(selected)
-    callback(selected)
+    config.camouflage[id] = selected
   }, [selected])
 
   const handleClick = () => {

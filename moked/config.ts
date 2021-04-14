@@ -6,4 +6,6 @@ export const FakeConfig: Configuration = {
   status: 'Draft',
   connections: 0,
   date: 1609864249034,
+  applock: [false, false, false],
+  camouflage: [false, false, false],
 }

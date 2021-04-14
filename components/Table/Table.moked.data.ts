@@ -38,7 +38,10 @@ const newConfiguration = (): Configuration => {
     id: randomId(),
     name: randomSentence(3),
     date: Date.now(),
+    status: 'Draft',
     connections: Math.round(Math.random() * 100),
+    applock: [false, false, false],
+    camouflage: [false, false, false],
   }
 }
 

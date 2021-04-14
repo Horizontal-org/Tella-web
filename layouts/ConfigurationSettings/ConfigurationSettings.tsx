@@ -14,7 +14,6 @@ import { ConfigurationInformation } from '../../components/ConfigurationInformat
 import { AppLockComponentLayout } from '../AppLockComponent/AppLockComponentLayout'
 import { LeftCollapsingSidebar } from '../../components/CollapsingSidebar/LeftCollapsingSidebar'
 import { MainContent } from '../../components/MainContent/MainContent'
-import { RightCollapsingSidebar } from '../../components/CollapsingSidebar/RightCollapsingSidebar'
 import { ToggleButtonsBar } from '../../components/ToggleButtonsBar/ToggleButtonsBar'
 import { ConfigSelect } from '../../components/ConfigSelect/ConfigSelect'
 import { CamouflageLayout } from '../Camouflage/CamouflageLayout'
@@ -31,15 +30,15 @@ enum Mode {
 
 export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }) => {
   const [mode, setMode] = useState(Mode.BASE)
-  const [leftSidebarOpen, changeLeftSidebarOpneStatus] = useState(true)
-  const [rightSidebarOpen, changeRightSidebarOpneStatus] = useState(true)
+  const [leftSidebarOpen, changeLeftSidebarOpenStatus] = useState(true)
+  const [rightSidebarOpen, changeRightSidebarOpenStatus] = useState(true)
 
   const setModeBase = () => setMode(Mode.BASE)
   const setModeApplock = () => setMode(Mode.APPLOCK)
   const setModeCamouflage = () => setMode(Mode.CAMOUFLAGE)
 
-  const toggleLeftSideBar = () => changeLeftSidebarOpneStatus(!leftSidebarOpen)
-  const toggleRightSideBar = () => changeRightSidebarOpneStatus(!rightSidebarOpen)
+  const toggleLeftSideBar = () => changeLeftSidebarOpenStatus(!leftSidebarOpen)
+  const toggleRightSideBar = () => changeRightSidebarOpenStatus(!rightSidebarOpen)
 
   return (
     <div className="flex flex-grow min-h-screen">
@@ -57,9 +56,13 @@ export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }
 
         <MainContent>
           {mode === Mode.APPLOCK ? (
-            <AppLockComponentLayout goPrev={setModeBase} goNext={setModeCamouflage} />
+            <AppLockComponentLayout
+              config={config}
+              goPrev={setModeBase}
+              goNext={setModeCamouflage}
+            />
           ) : mode === Mode.CAMOUFLAGE ? (
-            <CamouflageLayout goPrev={setModeApplock} goNext={setModeBase} />
+            <CamouflageLayout config={config} goPrev={setModeApplock} goNext={setModeBase} />
           ) : (
             <ConfigSelect appLockCB={setModeApplock} camouflageCB={setModeCamouflage} />
           )}
