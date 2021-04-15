@@ -11,12 +11,12 @@ import { ButtonOption } from '../../components/ButtonMenu/ButtonOption'
 import { TopBar } from '../../components/TopBar/TopBar'
 import { Configuration } from '../../domain/Configuration'
 import { ConfigurationInformation } from '../../components/ConfigurationInformation/ConfigurationInformation'
-import { AppLockComponentLayout } from '../AppLockComponent/AppLockComponentLayout'
 import { LeftCollapsingSidebar } from '../../components/CollapsingSidebar/LeftCollapsingSidebar'
 import { MainContent } from '../../components/MainContent/MainContent'
 import { ToggleButtonsBar } from '../../components/ToggleButtonsBar/ToggleButtonsBar'
 import { ConfigSelect } from '../../components/ConfigSelect/ConfigSelect'
-import { CamouflageLayout } from '../Camouflage/CamouflageLayout'
+import { AppLock } from '../../components/AppLock/AppLock'
+import { Camouflage } from '../../components/Camouflage/Camouflage'
 
 type Props = {
   config: Configuration
@@ -56,13 +56,9 @@ export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }
 
         <MainContent>
           {mode === Mode.APPLOCK ? (
-            <AppLockComponentLayout
-              config={config}
-              goPrev={setModeBase}
-              goNext={setModeCamouflage}
-            />
+            <AppLock config={config} goPrev={setModeBase} goNext={setModeCamouflage} />
           ) : mode === Mode.CAMOUFLAGE ? (
-            <CamouflageLayout config={config} goPrev={setModeApplock} goNext={setModeBase} />
+            <Camouflage config={config} goPrev={setModeApplock} goNext={setModeBase} />
           ) : (
             <ConfigSelect appLockCB={setModeApplock} camouflageCB={setModeCamouflage} />
           )}

@@ -22,6 +22,9 @@ export const CreateConfigPopup: FunctionComponent<Props> = ({ disabled, createCB
         <input className="shadow appearance-none border rounded py-1 px-1 text-gray-700 w-5/6 mb-3 mt-6 ml-6 leading-tight focus:outline-none focus:shadow-outline" />
       </div>
       <div className="mt-3 mb-5 flex justify-center space-x-6 px-4">
+        {/* This button is an HTML element instead of a Button component because it needed additional, 
+          different styling than other Buttons to make it wider, as shown in the Figma. A better way
+          to do this (perhaps refactoring the Button class) would be ideal. */}
         <button
           type="button"
           className="inline-block flex-none w-full py-1 px-2 space-x-2 rounded items-center text-sm font-bold font-sans uppercase border border-gray-100 active:shadow-inbox disabled:opacity-50 focus:outline-none text-white bg-blue-300 hover:bg-blue-400"

@@ -41,9 +41,22 @@ module.exports = {
       xxl: ['3rem', '4rem'],
       xxxl: ['24px', '32px'],
     },
+    fontWeight: {
+      ...defaultTheme.fontWeight,
+      extrablack: 1000,
+    },
     boxShadow: {
       ...defaultTheme.boxShadow,
       inbox: 'inset -3px 2px 2px rgba(0, 0, 0, 0.15), inset 2px -2px 2px rgba(0, 0, 0, 0.15)',
+    },
+    spacing: {
+      ...defaultTheme.spacing,
+      xxxsm: '5px',
+      xsm: '15px',
+      sm: '20px',
+      md: '30px',
+      xxl: '60px',
+      xxxxl: '80px',
     },
     extend: {
       fontFamily: {
