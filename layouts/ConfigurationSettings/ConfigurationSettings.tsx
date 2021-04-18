@@ -75,6 +75,8 @@ export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }
       />
 
       <TopBar title={config.name}>
+        {/* These buttons aren't correct for Configuration, just copied from
+          the Report Details page. They will need to be changed. */}
         <ButtonMenu openSide="left">
           <ButtonOption icon={<MdDelete />} text="Delete" color="#D6933B" />
         </ButtonMenu>
