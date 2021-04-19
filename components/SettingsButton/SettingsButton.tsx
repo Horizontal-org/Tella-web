@@ -29,7 +29,7 @@ export const SettingsButton: FunctionComponent<Props> = ({
     <div
       aria-hidden="true"
       onClick={() => handleClick()}
-      className={cn('w-48 h-60 bg-gray-25 font-sans rounded-lg text-centear hover:bg-gray-100', {
+      className={cn('w-48 h-60 bg-gray-25 font-sans rounded-lg text-center hover:bg-gray-100', {
         'bg-gray-100 border-blue-100 border': selected,
       })}
     >
