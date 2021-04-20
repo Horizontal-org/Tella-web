@@ -1,0 +1,37 @@
+// protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./proto/ ./proto/configuration.proto
+
+syntax = "proto3";
+
+package tellaweb;
+
+enum Lock {
+  PATTERN = 0;
+  PIN = 1;
+  PASSWORD = 2;
+}
+
+enum Method {
+  DOWNLOAD = 0;
+  CODE = 1;
+  QR = 2;
+}
+
+enum Camouflage {
+  CALCULATOR = 0;
+  CAMERA = 1;
+  NAME = 2;
+}
+
+message CrashReport {
+  bool share = 1;
+  bool changeable = 2;
+}
+
+message Configuration {
+  string name = 1;
+  string about = 2;
+  Lock lock = 3;
+  Method method = 4;
+  Camouflage camouflage = 5;
+  CrashReport crash_report = 6;
+}
