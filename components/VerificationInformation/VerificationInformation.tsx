@@ -14,54 +14,39 @@ export const VerificationInformation: FunctionComponent<Props> = ({
   file = {},
   device = {},
   env = {},
-}) => (
-  <>
-    <h3 className="text-center font-bold text-gray-500 py-3">File Information</h3>
-    {env && <VerificationMap longitude={env.longitude} latitude={env.latitude} />}
-    <div className="text-base font-bold text-gray-500 break-words">
-      <div className="py-3">
-        <span>File</span>
+}) => {
+  /* Currently, all labels are in camel case because the keys are written that
+    way. A prettier looking label may be desired down the road. */
+  const getVerificationTitleAndValue = (verificationSection = {}) =>
+    Object.entries(verificationSection).map(([key, value]) => (
+      <div className="font-normal grid grid-cols-2 text-sm text-gray-500 gap-y-2 py-1" key={key}>
+        <span>{key}</span>
+        <span className="text-black text-opacity-80">{value}</span>
       </div>
-      {file &&
-        Object.entries(file).map(([key, value]) => (
-          <div
-            className="font-normal grid grid-cols-2 text-sm text-gray-500 gap-y-2 py-1"
-            key={key}
-          >
-            <span>{key}</span>
-            <span className="text-black text-opacity-80">{value}</span>
-          </div>
-        ))}
-    </div>
-    <div className="text-base font-bold text-gray-500">
-      <div className="py-3">
-        <span>Device</span>
+    ))
+
+  return (
+    <>
+      <h3 className="text-center font-bold text-gray-500 py-3">File Information</h3>
+      {env && <VerificationMap longitude={env.longitude} latitude={env.latitude} />}
+      <div className="text-base font-bold text-gray-500 break-words">
+        <div className="py-3">
+          <span>File</span>
+        </div>
+        {file && getVerificationTitleAndValue(file)}
       </div>
-      {file &&
-        Object.entries(device).map(([key, value]) => (
-          <div
-            className="font-normal grid grid-cols-2 text-sm text-gray-500 gap-y-2 py-1"
-            key={key}
-          >
-            <span>{key}</span>
-            <span className="text-black text-opacity-80">{value}</span>
-          </div>
-        ))}
-    </div>
-    <div className="text-base font-bold text-gray-500">
-      <div className="py-3">
-        <span>Environment</span>
+      <div className="text-base font-bold text-gray-500">
+        <div className="py-3">
+          <span>Device</span>
+        </div>
+        {device && getVerificationTitleAndValue(device)}
       </div>
-      {file &&
-        Object.entries(env).map(([key, value]) => (
-          <div
-            className="font-normal grid grid-cols-2 text-sm text-gray-500 gap-y-2 py-1"
-            key={key}
-          >
-            <span>{key}</span>
-            <span className="text-black text-opacity-80">{value}</span>
-          </div>
-        ))}
-    </div>
-  </>
-)
+      <div className="text-base font-bold text-gray-500">
+        <div className="py-3">
+          <span>Environment</span>
+        </div>
+        {env && getVerificationTitleAndValue(env)}
+      </div>
+    </>
+  )
+}
