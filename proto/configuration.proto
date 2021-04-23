@@ -1,25 +1,25 @@
-// protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./proto/ ./proto/configuration.proto
+// protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./ ./proto/configuration.proto
 
 syntax = "proto3";
 
 package tellaweb;
 
-enum Lock {
+enum AppLockChoice {
   PATTERN = 0;
   PIN = 1;
   PASSWORD = 2;
 }
 
-enum Method {
+enum DowloadMethodChoice {
   DOWNLOAD = 0;
   CODE = 1;
   QR = 2;
 }
 
-enum Camouflage {
-  CALCULATOR = 0;
-  CAMERA = 1;
-  NAME = 2;
+enum CamouflageChoice {
+  ICON = 0;
+  CALCULATOR = 1;
+  NOTEPAD = 2;
 }
 
 message CrashReport {
@@ -28,10 +28,11 @@ message CrashReport {
 }
 
 message Configuration {
-  string name = 1;
-  string about = 2;
-  Lock lock = 3;
-  Method method = 4;
-  Camouflage camouflage = 5;
-  CrashReport crash_report = 6;
+  string id = 1;
+  string name = 2;
+  int32 date = 3;
+  int32 connections = 4;
+  string status = 5;
+  repeated bool applock = 6;
+  repeated bool camoflage = 7;
 }

@@ -1,117 +1,118 @@
 /* eslint-disable */
-import { Writer, Reader } from 'protobufjs/minimal'
+import { util, configure, Writer, Reader } from 'protobufjs/minimal'
+import * as Long from 'long'
 
 export const protobufPackage = 'tellaweb'
 
-export enum Lock {
+export enum AppLockChoice {
   PATTERN = 0,
   PIN = 1,
   PASSWORD = 2,
   UNRECOGNIZED = -1,
 }
 
-export function lockFromJSON(object: any): Lock {
+export function appLockChoiceFromJSON(object: any): AppLockChoice {
   switch (object) {
     case 0:
     case 'PATTERN':
-      return Lock.PATTERN
+      return AppLockChoice.PATTERN
     case 1:
     case 'PIN':
-      return Lock.PIN
+      return AppLockChoice.PIN
     case 2:
     case 'PASSWORD':
-      return Lock.PASSWORD
+      return AppLockChoice.PASSWORD
     case -1:
     case 'UNRECOGNIZED':
     default:
-      return Lock.UNRECOGNIZED
+      return AppLockChoice.UNRECOGNIZED
   }
 }
 
-export function lockToJSON(object: Lock): string {
+export function appLockChoiceToJSON(object: AppLockChoice): string {
   switch (object) {
-    case Lock.PATTERN:
+    case AppLockChoice.PATTERN:
       return 'PATTERN'
-    case Lock.PIN:
+    case AppLockChoice.PIN:
       return 'PIN'
-    case Lock.PASSWORD:
+    case AppLockChoice.PASSWORD:
       return 'PASSWORD'
     default:
       return 'UNKNOWN'
   }
 }
 
-export enum Method {
+export enum DowloadMethodChoice {
   DOWNLOAD = 0,
   CODE = 1,
   QR = 2,
   UNRECOGNIZED = -1,
 }
 
-export function methodFromJSON(object: any): Method {
+export function dowloadMethodChoiceFromJSON(object: any): DowloadMethodChoice {
   switch (object) {
     case 0:
     case 'DOWNLOAD':
-      return Method.DOWNLOAD
+      return DowloadMethodChoice.DOWNLOAD
     case 1:
     case 'CODE':
-      return Method.CODE
+      return DowloadMethodChoice.CODE
     case 2:
     case 'QR':
-      return Method.QR
+      return DowloadMethodChoice.QR
     case -1:
     case 'UNRECOGNIZED':
     default:
-      return Method.UNRECOGNIZED
+      return DowloadMethodChoice.UNRECOGNIZED
   }
 }
 
-export function methodToJSON(object: Method): string {
+export function dowloadMethodChoiceToJSON(object: DowloadMethodChoice): string {
   switch (object) {
-    case Method.DOWNLOAD:
+    case DowloadMethodChoice.DOWNLOAD:
       return 'DOWNLOAD'
-    case Method.CODE:
+    case DowloadMethodChoice.CODE:
       return 'CODE'
-    case Method.QR:
+    case DowloadMethodChoice.QR:
       return 'QR'
     default:
       return 'UNKNOWN'
   }
 }
 
-export enum Camouflage {
-  CALCULATOR = 0,
-  CAMERA = 1,
-  NAME = 2,
+export enum CamouflageChoice {
+  ICON = 0,
+  CALCULATOR = 1,
+  NOTEPAD = 2,
   UNRECOGNIZED = -1,
 }
 
-export function camouflageFromJSON(object: any): Camouflage {
+export function camouflageChoiceFromJSON(object: any): CamouflageChoice {
   switch (object) {
     case 0:
-    case 'CALCULATOR':
-      return Camouflage.CALCULATOR
+    case 'ICON':
+      return CamouflageChoice.ICON
     case 1:
-    case 'CAMERA':
-      return Camouflage.CAMERA
+    case 'CALCULATOR':
+      return CamouflageChoice.CALCULATOR
     case 2:
-    case 'NAME':
-      return Camouflage.NAME
+    case 'NOTEPAD':
+      return CamouflageChoice.NOTEPAD
     case -1:
     case 'UNRECOGNIZED':
     default:
-      return Camouflage.UNRECOGNIZED
+      return CamouflageChoice.UNRECOGNIZED
   }
 }
 
-export function camouflageToJSON(object: Camouflage): string {
+export function camouflageChoiceToJSON(object: CamouflageChoice): string {
   switch (object) {
-    case Camouflage.CALCULATOR:
+    case CamouflageChoice.ICON:
+      return 'ICON'
+    case CamouflageChoice.CALCULATOR:
       return 'CALCULATOR'
-    case Camouflage.CAMERA:
-      return 'CAMERA'
-    case Camouflage.NAME:
-      return 'NAME'
+    case CamouflageChoice.NOTEPAD:
+      return 'NOTEPAD'
     default:
       return 'UNKNOWN'
   }
@@ -123,12 +124,13 @@ export interface CrashReport {
 }
 
 export interface Configuration {
+  id: string
   name: string
-  about: string
-  lock: Lock
-  method: Method
-  camouflage: Camouflage
-  crashReport: CrashReport | undefined
+  date: number
+  connections: number
+  status: string
+  applock: boolean[]
+  camoflage: boolean[]
 }
 
 const baseCrashReport: object = { share: false, changeable: false }
@@ -145,7 +147,7 @@ export const CrashReport = {
   },
 
   decode(input: Reader | Uint8Array, length?: number): CrashReport {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    const reader = input instanceof Reader ? input : new Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = { ...baseCrashReport } as CrashReport
     while (reader.pos < end) {
@@ -203,55 +205,89 @@ export const CrashReport = {
   },
 }
 
-const baseConfiguration: object = { name: '', about: '', lock: 0, method: 0, camouflage: 0 }
+const baseConfiguration: object = {
+  id: '',
+  name: '',
+  date: 0,
+  connections: 0,
+  status: '',
+  applock: false,
+  camoflage: false,
+}
 
 export const Configuration = {
   encode(message: Configuration, writer: Writer = Writer.create()): Writer {
+    if (message.id !== '') {
+      writer.uint32(10).string(message.id)
+    }
     if (message.name !== '') {
-      writer.uint32(10).string(message.name)
+      writer.uint32(18).string(message.name)
     }
-    if (message.about !== '') {
-      writer.uint32(18).string(message.about)
+    if (message.date !== 0) {
+      writer.uint32(24).int32(message.date)
     }
-    if (message.lock !== 0) {
-      writer.uint32(24).int32(message.lock)
+    if (message.connections !== 0) {
+      writer.uint32(32).int32(message.connections)
     }
-    if (message.method !== 0) {
-      writer.uint32(32).int32(message.method)
+    if (message.status !== '') {
+      writer.uint32(42).string(message.status)
     }
-    if (message.camouflage !== 0) {
-      writer.uint32(40).int32(message.camouflage)
+    writer.uint32(50).fork()
+    for (const v of message.applock) {
+      writer.bool(v)
     }
-    if (message.crashReport !== undefined) {
-      CrashReport.encode(message.crashReport, writer.uint32(50).fork()).ldelim()
+    writer.ldelim()
+    writer.uint32(58).fork()
+    for (const v of message.camoflage) {
+      writer.bool(v)
     }
+    writer.ldelim()
     return writer
   },
 
   decode(input: Reader | Uint8Array, length?: number): Configuration {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    const reader = input instanceof Reader ? input : new Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = { ...baseConfiguration } as Configuration
+    message.applock = []
+    message.camoflage = []
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
-          message.name = reader.string()
+          message.id = reader.string()
           break
         case 2:
-          message.about = reader.string()
+          message.name = reader.string()
           break
         case 3:
-          message.lock = reader.int32() as any
+          message.date = reader.int32()
           break
         case 4:
-          message.method = reader.int32() as any
+          message.connections = reader.int32()
           break
         case 5:
-          message.camouflage = reader.int32() as any
+          message.status = reader.string()
           break
         case 6:
-          message.crashReport = CrashReport.decode(reader, reader.uint32())
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos
+            while (reader.pos < end2) {
+              message.applock.push(reader.bool())
+            }
+          } else {
+            message.applock.push(reader.bool())
+          }
+          break
+        case 7:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos
+            while (reader.pos < end2) {
+              message.camoflage.push(reader.bool())
+            }
+          } else {
+            message.camoflage.push(reader.bool())
+          }
           break
         default:
           reader.skipType(tag & 7)
@@ -263,82 +299,104 @@ export const Configuration = {
 
   fromJSON(object: any): Configuration {
     const message = { ...baseConfiguration } as Configuration
+    message.applock = []
+    message.camoflage = []
+    if (object.id !== undefined && object.id !== null) {
+      message.id = String(object.id)
+    } else {
+      message.id = ''
+    }
     if (object.name !== undefined && object.name !== null) {
       message.name = String(object.name)
     } else {
       message.name = ''
     }
-    if (object.about !== undefined && object.about !== null) {
-      message.about = String(object.about)
+    if (object.date !== undefined && object.date !== null) {
+      message.date = Number(object.date)
     } else {
-      message.about = ''
+      message.date = 0
     }
-    if (object.lock !== undefined && object.lock !== null) {
-      message.lock = lockFromJSON(object.lock)
+    if (object.connections !== undefined && object.connections !== null) {
+      message.connections = Number(object.connections)
     } else {
-      message.lock = 0
+      message.connections = 0
     }
-    if (object.method !== undefined && object.method !== null) {
-      message.method = methodFromJSON(object.method)
+    if (object.status !== undefined && object.status !== null) {
+      message.status = String(object.status)
     } else {
-      message.method = 0
+      message.status = ''
     }
-    if (object.camouflage !== undefined && object.camouflage !== null) {
-      message.camouflage = camouflageFromJSON(object.camouflage)
-    } else {
-      message.camouflage = 0
+    if (object.applock !== undefined && object.applock !== null) {
+      for (const e of object.applock) {
+        message.applock.push(Boolean(e))
+      }
     }
-    if (object.crashReport !== undefined && object.crashReport !== null) {
-      message.crashReport = CrashReport.fromJSON(object.crashReport)
-    } else {
-      message.crashReport = undefined
+    if (object.camoflage !== undefined && object.camoflage !== null) {
+      for (const e of object.camoflage) {
+        message.camoflage.push(Boolean(e))
+      }
     }
     return message
   },
 
   toJSON(message: Configuration): unknown {
     const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
     message.name !== undefined && (obj.name = message.name)
-    message.about !== undefined && (obj.about = message.about)
-    message.lock !== undefined && (obj.lock = lockToJSON(message.lock))
-    message.method !== undefined && (obj.method = methodToJSON(message.method))
-    message.camouflage !== undefined && (obj.camouflage = camouflageToJSON(message.camouflage))
-    message.crashReport !== undefined &&
-      (obj.crashReport = message.crashReport ? CrashReport.toJSON(message.crashReport) : undefined)
+    message.date !== undefined && (obj.date = message.date)
+    message.connections !== undefined && (obj.connections = message.connections)
+    message.status !== undefined && (obj.status = message.status)
+    if (message.applock) {
+      obj.applock = message.applock.map((e) => e)
+    } else {
+      obj.applock = []
+    }
+    if (message.camoflage) {
+      obj.camoflage = message.camoflage.map((e) => e)
+    } else {
+      obj.camoflage = []
+    }
     return obj
   },
 
   fromPartial(object: DeepPartial<Configuration>): Configuration {
     const message = { ...baseConfiguration } as Configuration
+    message.applock = []
+    message.camoflage = []
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = ''
+    }
     if (object.name !== undefined && object.name !== null) {
       message.name = object.name
     } else {
       message.name = ''
     }
-    if (object.about !== undefined && object.about !== null) {
-      message.about = object.about
+    if (object.date !== undefined && object.date !== null) {
+      message.date = object.date
     } else {
-      message.about = ''
+      message.date = 0
     }
-    if (object.lock !== undefined && object.lock !== null) {
-      message.lock = object.lock
+    if (object.connections !== undefined && object.connections !== null) {
+      message.connections = object.connections
     } else {
-      message.lock = 0
+      message.connections = 0
     }
-    if (object.method !== undefined && object.method !== null) {
-      message.method = object.method
+    if (object.status !== undefined && object.status !== null) {
+      message.status = object.status
     } else {
-      message.method = 0
+      message.status = ''
     }
-    if (object.camouflage !== undefined && object.camouflage !== null) {
-      message.camouflage = object.camouflage
-    } else {
-      message.camouflage = 0
+    if (object.applock !== undefined && object.applock !== null) {
+      for (const e of object.applock) {
+        message.applock.push(e)
+      }
     }
-    if (object.crashReport !== undefined && object.crashReport !== null) {
-      message.crashReport = CrashReport.fromPartial(object.crashReport)
-    } else {
-      message.crashReport = undefined
+    if (object.camoflage !== undefined && object.camoflage !== null) {
+      for (const e of object.camoflage) {
+        message.camoflage.push(e)
+      }
     }
     return message
   },
@@ -354,3 +412,10 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
+
+// If you get a compile-error about 'Constructor<Long> and ... have no overlap',
+// add '--ts_proto_opt=esModuleInterop=true' as a flag when calling 'protoc'.
+if (util.Long !== Long) {
+  util.Long = Long as any
+  configure()
+}
