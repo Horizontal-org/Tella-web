@@ -77,7 +77,7 @@ export const ConfigurationListLayout: FunctionComponent<Props> = ({
       content={
         <div>
           <div className="flex h-10 space-x-2 mb-2 p-2">
-            <CreateConfigPopup createCB={() => undefined} />
+            <CreateConfigPopup onCreate={() => undefined} />
             {selectedConfigurations.length === 0 && (
               <form onSubmit={search} className="flex">
                 <SearchInput

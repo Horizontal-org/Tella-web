@@ -8,7 +8,7 @@ type Props = {
   disabled?: boolean
 }
 
-export const NewButtonPopup: FunctionComponent<PropsWithChildren<Props>> = ({
+export const ButtonPopup: FunctionComponent<PropsWithChildren<Props>> = ({
   disabled,
   children,
 }) => {

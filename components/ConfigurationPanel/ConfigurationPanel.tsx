@@ -9,7 +9,7 @@ type Props = {
   name: string
 }
 
-export const GenerateConfiguration: FunctionComponent<Props> = ({ configuration, name }) => {
+export const ConfigurationPanel: FunctionComponent<Props> = ({ configuration, name }) => {
   const [imageUrl, setImageUrl] = useState('')
 
   const generateQRCode = async (): Promise<string> => {

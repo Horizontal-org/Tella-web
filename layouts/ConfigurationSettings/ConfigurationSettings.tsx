@@ -9,17 +9,18 @@ import { Button } from '../../components/Button/Button'
 import { ButtonMenu } from '../../components/ButtonMenu/ButtonMenu'
 import { ButtonOption } from '../../components/ButtonMenu/ButtonOption'
 import { TopBar } from '../../components/TopBar/TopBar'
-import { Configuration } from '../../domain/Configuration'
+import { AppLockConfig, CamouflageConfig, Configuration } from '../../domain/Configuration'
 import { ConfigurationInformation } from '../../components/ConfigurationInformation/ConfigurationInformation'
 import { LeftCollapsingSidebar } from '../../components/CollapsingSidebar/LeftCollapsingSidebar'
 import { MainContent } from '../../components/MainContent/MainContent'
 import { ToggleButtonsBar } from '../../components/ToggleButtonsBar/ToggleButtonsBar'
 import { ConfigSelect } from '../../components/ConfigSelect/ConfigSelect'
 import { AppLock } from '../../components/AppLock/AppLock'
-import { Camouflage } from '../../components/Camouflage/Camouflage'
+import { CamouflageWizard } from '../../components/CamouflageWizard/CamouflageWizard'
 
 type Props = {
   config: Configuration
+  onChange: (changes: Partial<Configuration>) => void
 }
 
 enum Mode {
@@ -28,7 +29,7 @@ enum Mode {
   CAMOUFLAGE,
 }
 
-export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }) => {
+export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config, onChange }) => {
   const [mode, setMode] = useState(Mode.BASE)
   const [leftSidebarOpen, changeLeftSidebarOpenStatus] = useState(true)
   const [rightSidebarOpen, changeRightSidebarOpenStatus] = useState(true)
@@ -39,6 +40,16 @@ export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }
 
   const toggleLeftSideBar = () => changeLeftSidebarOpenStatus(!leftSidebarOpen)
   const toggleRightSideBar = () => changeRightSidebarOpenStatus(!rightSidebarOpen)
+
+  const saveAppLock = (applock: AppLockConfig) => {
+    onChange({ applock })
+    setModeBase()
+  }
+
+  const saveCamouflage = (camouflage: CamouflageConfig) => {
+    onChange({ camouflage })
+    setModeBase()
+  }
 
   return (
     <div className="flex flex-grow min-h-screen">
@@ -56,11 +67,24 @@ export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }
 
         <MainContent>
           {mode === Mode.APPLOCK ? (
-            <AppLock config={config} goPrev={setModeBase} goNext={setModeCamouflage} />
+            <AppLock config={config} goPrev={setModeBase} goNext={saveAppLock} />
           ) : mode === Mode.CAMOUFLAGE ? (
-            <Camouflage config={config} goPrev={setModeApplock} goNext={setModeBase} />
+            <CamouflageWizard config={config} goPrev={setModeBase} goNext={saveCamouflage} />
           ) : (
-            <ConfigSelect appLockCB={setModeApplock} camouflageCB={setModeCamouflage} />
+            <ConfigSelect
+              options={[
+                {
+                  title: 'App Lock',
+                  description: 'Pattern and PIN available',
+                  onClick: setModeApplock,
+                },
+                {
+                  title: 'Camouflage',
+                  description: 'Change name + icon and Calculator available',
+                  onClick: setModeCamouflage,
+                },
+              ]}
+            />
           )}
         </MainContent>
       </div>

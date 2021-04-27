@@ -17,7 +17,8 @@ export const NavButton: FunctionComponent<Props> = ({
   onClick,
 }: Props) => {
   return (
-    <div
+    <button
+      type="button"
       className={cn(
         'flex flex-row font-bold items-center h-10 px-4 rounded text-base bg-white text-gray-500',
         {
@@ -28,11 +29,10 @@ export const NavButton: FunctionComponent<Props> = ({
         }
       )}
       onClick={onClick}
-      aria-hidden="true" // TODO: a11y
     >
       <span className="flex items-center justify-center text-xl">{icon}</span>
       <span className="ml-3">{text}</span>
-    </div>
+    </button>
   )
 }
 

@@ -35,7 +35,7 @@ storiesOf('Layouts', module)
     )
   })
   .add('Configuration Settings', () => {
-    return <ConfigurationSettingsLayout config={FakeConfig} />
+    return <ConfigurationSettingsLayout config={FakeConfig} onChange={console.log} />
   })
   .add('Configuration Lists', () => {
     return (
@@ -49,5 +49,5 @@ storiesOf('Layouts', module)
   })
 
   .add('Create Config Popup', () => {
-    return <CreateConfigPopup createCB={() => undefined} />
+    return <CreateConfigPopup onCreate={() => undefined} />
   })

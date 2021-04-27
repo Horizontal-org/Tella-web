@@ -11,18 +11,16 @@ type Props = {
   goNext: (camouflage: CamouflageConfig) => void
 }
 
-export const Camouflage: FunctionComponent<Props> = ({ config, goPrev, goNext }) => {
+export const CamouflageWizard: FunctionComponent<Props> = ({ config, goPrev, goNext }) => {
   const [options, toggleOptions] = useToggleOptions<CamouflageChoice>(config.camouflage)
 
   return (
     <div className="block w-auto">
       <p className="text-xxxl font-extrablack text-black justify-center items-center text-center p-xxxsm mt-xxxxl">
-        {' '}
-        Camouflage{' '}
+        Camouflage
       </p>
       <p className="text-base font-medium text-grey-500 justify-center items-center text-center mb-xxl">
-        {' '}
-        What camouflage option(s) should be available to users?{' '}
+        What camouflage option(s) should be available to users?
       </p>
       <div className="flex flex-row justify-center gap-10">
         <SettingsButton
