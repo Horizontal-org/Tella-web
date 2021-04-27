@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { FunctionComponent, useState, useEffect } from 'react'
 import QRCode from 'qrcode'
-import placeholder from './placeholder.png'
 import { Configuration } from '../../proto/configuration'
 import { Title, SubTitle } from '../Headers/Headers'
 import { Button, btnType } from '../Button/Button'
@@ -14,21 +13,17 @@ type Props = {
 }
 
 export const GenerateConfiguration: FunctionComponent<Props> = ({
-  configuration = {},
+  configuration,
   name = 'A name would go here',
 }) => {
   const [imageUrl, setImageUrl] = useState('')
 
-  const generateQRCode: Promise<void> = async () => {
-    try {
-      const val = Configuration.encode(configuration).finish()
-      const response = await QRCode.toDataURL([{ data: val, mode: 'byte' }])
-      setImageUrl(response)
-    } catch (error) {
-      // console.log(error)
-    } finally {
-      // console.log('Qr code generated.')
-    }
+  const generateQRCode = async (): Promise<string> => {
+    const encodedConfig = Uint8ClampedArray.from(
+      Array.from(Configuration.encode(configuration).finish())
+    )
+
+    return QRCode.toDataURL([{ data: encodedConfig, mode: 'byte' }])
   }
 
   const downloadQRCode = () => {
@@ -70,6 +65,12 @@ export const GenerateConfiguration: FunctionComponent<Props> = ({
 
   useEffect(() => {
     generateQRCode()
+      .then((image) => {
+        setImageUrl(image)
+      })
+      .catch(() => {
+        throw new Error('Error parsing config to qr')
+      })
   }, [])
 
   return (
@@ -86,7 +87,7 @@ export const GenerateConfiguration: FunctionComponent<Props> = ({
           <p className="text-base text-gray-500 py-3">
             Entering this code in Tella will apply the configuration.
           </p>
-          <img src={String(placeholder)} alt="placeholder" />
+          <img src="/images/placeholder.png" alt="Placeholder" />
           <div className="flex flex-row space-x-4 justify-center">
             <Button text="Enable" type={btnType.Secondary} />
           </div>
@@ -107,7 +108,7 @@ export const GenerateConfiguration: FunctionComponent<Props> = ({
           <p className="text-base text-gray-500 py-3">
             Share the file with your users. Uploading it into Tella will apply the configuration.
           </p>
-          <img src={String(placeholder)} alt="placeholder" />
+          <img src="/images/placeholder.png" alt="Placeholder" />
           <div className="flex flex-row space-x-4 justify-center">
             <Button
               text="Download"

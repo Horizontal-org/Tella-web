@@ -5,7 +5,7 @@ export const MokedConfiguration: Configuration = {
   name: 'test json file',
   date: 10,
   connections: 5,
-  status: 1,
+  status: '1',
   applock: [false, false, false],
   camoflage: [false, false, false],
 }
