@@ -53,7 +53,7 @@ export const ReportDetailsLayout: FunctionComponent<Props> = ({ report, onDelete
 
   return (
     <div className="flex flex-grow min-h-screen">
-      <LeftCollapsingSidebar cond={!leftSidebarOpen}>
+      <LeftCollapsingSidebar collapsed={!leftSidebarOpen}>
         <ReportInformation report={report} />
         <div className="grid grid-cols-2 gap-2 mt-6">
           {report.files.map((file) => (

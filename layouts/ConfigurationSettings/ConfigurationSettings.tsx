@@ -42,7 +42,7 @@ export const ConfigurationSettingsLayout: FunctionComponent<Props> = ({ config }
 
   return (
     <div className="flex flex-grow min-h-screen">
-      <LeftCollapsingSidebar cond={!leftSidebarOpen}>
+      <LeftCollapsingSidebar collapsed={!leftSidebarOpen}>
         <ConfigurationInformation config={config} />
       </LeftCollapsingSidebar>
 
