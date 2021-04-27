@@ -26,7 +26,7 @@ type Props = {
   onClose: () => void
 }
 
-export const ReportDetailsLayout: FunctionComponent<Props> = ({ report, onDelete, onClose }) => {
+export const ReportDetailsLayout: FunctionComponent<Props> = ({ report, onDelete }) => {
   const [leftSidebarOpen, changeLeftSidebarOpneStatus] = useState(true)
   const [rightSidebarOpen, changeRightSidebarOpneStatus] = useState(true)
 
