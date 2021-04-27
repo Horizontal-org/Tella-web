@@ -14,9 +14,5 @@ export const ConfigurationInformation: FunctionComponent<Props> = ({ config }) =
     'Number of connections': config.connections.toString(),
     ID: config.id.toString(),
   }
-  return (
-    <>
-      <ItemInformation title="Configuration information" dict={dict} />
-    </>
-  )
+  return <ItemInformation title="Configuration information" dict={dict} />
 }

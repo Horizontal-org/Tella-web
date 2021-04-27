@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { FunctionComponent, useState, useEffect } from 'react'
 import QRCode from 'qrcode'
 import { Configuration } from '../../proto/configuration'
@@ -12,17 +9,13 @@ type Props = {
   name: string
 }
 
-export const GenerateConfiguration: FunctionComponent<Props> = ({
-  configuration,
-  name = 'A name would go here',
-}) => {
+export const GenerateConfiguration: FunctionComponent<Props> = ({ configuration, name }) => {
   const [imageUrl, setImageUrl] = useState('')
 
   const generateQRCode = async (): Promise<string> => {
     const encodedConfig = Uint8ClampedArray.from(
       Array.from(Configuration.encode(configuration).finish())
     )
-
     return QRCode.toDataURL([{ data: encodedConfig, mode: 'byte' }])
   }
 
