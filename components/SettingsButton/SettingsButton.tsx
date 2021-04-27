@@ -1,46 +1,33 @@
 /* eslint-disable no-param-reassign */
-import { FunctionComponent, useEffect, useState } from 'react'
+import { FunctionComponent, MouseEvent } from 'react'
 import cn from 'classnames'
 
 type Props = {
-  itemSettings: boolean[]
-  id: number
+  selected: boolean
   type: string
   description: string
+  onClick: (event: MouseEvent<HTMLButtonElement>) => void
 }
 
 export const SettingsButton: FunctionComponent<Props> = ({
-  itemSettings,
-  id,
+  selected,
   type,
   description,
-}) => {
-  const [selected, updateSelected] = useState(itemSettings[id])
-
-  useEffect(() => {
-    itemSettings[id] = selected
-  }, [selected])
-
-  const handleClick = () => {
-    updateSelected(!selected)
-  }
-
-  return (
-    <div
-      aria-hidden="true"
-      onClick={() => handleClick()}
-      className={cn('w-48 h-60 bg-gray-25 font-sans rounded-lg text-center hover:bg-gray-100', {
-        'bg-gray-100 border-blue-100 border': selected,
-      })}
-    >
-      <p className="block font-bold font-medium items-center justify-center text-center mt-6">
-        {' '}
-        {type}{' '}
-      </p>
-      <div className="block ml-auto mr-auto w-6/12">
-        <img src="/icon.png" className="mt-xsm mb-md" alt="icon" />
-      </div>
-      <p className="block font-light text-base text-center mt-15"> {description} </p>
+  onClick,
+}) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={cn('p-0 w-48 h-60 bg-gray-25 font-sans rounded-lg text-center hover:bg-gray-100', {
+      'bg-gray-100 border-blue-100 border': selected,
+    })}
+  >
+    <p className="p-0 block font-bold font-medium items-center justify-center text-center mt-6">
+      {type}
+    </p>
+    <div className="block ml-auto mr-auto w-6/12">
+      <img src="/icon.png" className="mt-xsm mb-md" alt="icon" />
     </div>
-  )
-}
+    <p className="block font-light text-base text-center mt-15"> {description} </p>
+  </button>
+)

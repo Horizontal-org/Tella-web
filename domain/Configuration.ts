@@ -12,6 +12,9 @@ export enum CamouflageChoice {
   NOTEPAD,
 }
 
+export type AppLockConfig = Partial<Record<AppLockChoice, boolean>>
+export type CamouflageConfig = Partial<Record<CamouflageChoice, boolean>>
+
 export class Configuration extends Item {
   date: number
 
@@ -19,7 +22,7 @@ export class Configuration extends Item {
 
   status: string
 
-  applock: [boolean, boolean, boolean]
+  applock: AppLockConfig
 
-  camouflage: [boolean, boolean, boolean]
+  camouflage: CamouflageConfig
 }

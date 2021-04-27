@@ -1,16 +1,19 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 
 import { SettingsButton } from '../SettingsButton/SettingsButton'
 import { NavigateButtonsBar } from '../NavigateButtonsBar/NavigateButtonsBar'
-import { AppLockChoice, Configuration } from '../../domain/Configuration'
+import { AppLockChoice, AppLockConfig, Configuration } from '../../domain/Configuration'
+import { useToggleOptions } from '../../hooks/useToggleOptions'
 
 type Props = {
-  config: Configuration
+  config?: Configuration
   goPrev: () => void
-  goNext: () => void
+  goNext: (selected: AppLockConfig) => void
 }
 
 export const AppLock: FunctionComponent<Props> = ({ config, goPrev, goNext }) => {
+  const [options, toggleOptions] = useToggleOptions<AppLockChoice>(config.applock)
+
   return (
     <div className="block w-auto">
       <p className="text-xxxl font-extrablack text-black justify-center items-center text-center p-xxxsm mt-xxxxl">
@@ -22,20 +25,20 @@ export const AppLock: FunctionComponent<Props> = ({ config, goPrev, goNext }) =>
       </p>
       <div className="flex flex-row justify-center gap-10">
         <SettingsButton
-          itemSettings={config.applock}
-          id={AppLockChoice.PATTERN}
+          onClick={toggleOptions(AppLockChoice.PATTERN)}
+          selected={options[AppLockChoice.PATTERN]}
           type="Pattern"
           description="Draw a simple pattern with your finger"
         />
         <SettingsButton
-          itemSettings={config.applock}
-          id={AppLockChoice.PIN}
+          onClick={toggleOptions(AppLockChoice.PIN)}
+          selected={options[AppLockChoice.PIN]}
           type="Pin"
           description="The user enters 6 or more numbers"
         />
         <SettingsButton
-          itemSettings={config.applock}
-          id={AppLockChoice.PASSWORD}
+          onClick={toggleOptions(AppLockChoice.PASSWORD)}
+          selected={options[AppLockChoice.PASSWORD]}
           type="Password"
           description="The user enters 6 or more letters or numbers"
         />
@@ -44,7 +47,7 @@ export const AppLock: FunctionComponent<Props> = ({ config, goPrev, goNext }) =>
         {' '}
         The user will be able to set a Pattern or a PIN as their app lock.
       </p>
-      <NavigateButtonsBar goPrev={goPrev} goNext={goNext} />
+      <NavigateButtonsBar goPrev={goPrev} goNext={() => goNext(options)} />
     </div>
   )
 }

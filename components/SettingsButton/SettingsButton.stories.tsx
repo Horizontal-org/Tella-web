@@ -1,15 +1,14 @@
+import { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { SettingsButton } from './SettingsButton'
-import { FakeConfig } from '../../moked/config'
-
-//
 
 storiesOf('Settings Toggle Button', module).add('Settings Toggle Button', () => {
+  const [selected, setSelected] = useState(false)
   return (
     <div className="flex flex-row">
       <SettingsButton
-        itemSettings={FakeConfig.applock}
-        id={0}
+        onClick={() => setSelected(!selected)}
+        selected={selected}
         type="Setting"
         description="Click to enable this setting"
       />

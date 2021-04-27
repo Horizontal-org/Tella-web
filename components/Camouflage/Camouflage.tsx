@@ -2,15 +2,18 @@ import { FunctionComponent } from 'react'
 
 import { SettingsButton } from '../SettingsButton/SettingsButton'
 import { NavigateButtonsBar } from '../NavigateButtonsBar/NavigateButtonsBar'
-import { CamouflageChoice, Configuration } from '../../domain/Configuration'
+import { CamouflageChoice, CamouflageConfig, Configuration } from '../../domain/Configuration'
+import { useToggleOptions } from '../../hooks/useToggleOptions'
 
 type Props = {
   config: Configuration
   goPrev: () => void
-  goNext: () => void
+  goNext: (camouflage: CamouflageConfig) => void
 }
 
 export const Camouflage: FunctionComponent<Props> = ({ config, goPrev, goNext }) => {
+  const [options, toggleOptions] = useToggleOptions<CamouflageChoice>(config.camouflage)
+
   return (
     <div className="block w-auto">
       <p className="text-xxxl font-extrablack text-black justify-center items-center text-center p-xxxsm mt-xxxxl">
@@ -23,20 +26,20 @@ export const Camouflage: FunctionComponent<Props> = ({ config, goPrev, goNext })
       </p>
       <div className="flex flex-row justify-center gap-10">
         <SettingsButton
-          itemSettings={config.camouflage}
-          id={CamouflageChoice.ICON}
+          onClick={toggleOptions(CamouflageChoice.ICON)}
+          selected={options[CamouflageChoice.ICON]}
           type="Icon"
           description="The user picks a new name and icon"
         />
         <SettingsButton
-          itemSettings={config.camouflage}
-          id={CamouflageChoice.CALCULATOR}
+          onClick={toggleOptions(CamouflageChoice.CALCULATOR)}
+          selected={options[CamouflageChoice.CALCULATOR]}
           type="Calculator"
           description="The user enters their pin in a calculator"
         />
         <SettingsButton
-          itemSettings={config.camouflage}
-          id={CamouflageChoice.NOTEPAD}
+          onClick={toggleOptions(CamouflageChoice.NOTEPAD)}
+          selected={options[CamouflageChoice.NOTEPAD]}
           type="Notepad"
           description="The user enters 6 or more letters or numbers"
         />
@@ -45,7 +48,7 @@ export const Camouflage: FunctionComponent<Props> = ({ config, goPrev, goNext })
         {' '}
         Select at least one option above.
       </p>
-      <NavigateButtonsBar goPrev={goPrev} goNext={goNext} />
+      <NavigateButtonsBar goPrev={goPrev} goNext={() => goNext(options)} />
     </div>
   )
 }
