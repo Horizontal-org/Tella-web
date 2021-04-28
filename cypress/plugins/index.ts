@@ -1,9 +1,6 @@
 /// <reference types="cypress" />
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// eslint-disable-next-line no-unused-vars
-const PluginConfig: Cypress.PluginConfig = (on, config): void => {
-  // Plugin configuration
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const PluginConfig: Cypress.PluginConfig = (): void => {}
 
 export default PluginConfig

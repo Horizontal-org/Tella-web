@@ -6,8 +6,9 @@ import { makeReportData, makeConfigurationData } from '../components/Table/Table
 import { ReportDetailsLayout } from './ReportDetails/ReportDetailsLayout'
 import { ReportListLayout } from './ReportList/ReportListLayout'
 import { ConfigurationListLayout } from './ConfigurationList/ConfigurationListLayout'
-import { CamouflageLayout } from './Camouflage/CamouflageLayout'
-import { AppLockComponentLayout } from './AppLockComponent/AppLockComponentLayout'
+import { ConfigurationSettingsLayout } from './ConfigurationSettings/ConfigurationSettings'
+import { FakeConfig } from '../moked/config'
+import { CreateConfigPopup } from './CreateConfigPopup/CreateConfigPopup'
 
 export const parameters = {
   layout: 'fullscreen',
@@ -33,6 +34,9 @@ storiesOf('Layouts', module)
       />
     )
   })
+  .add('Configuration Settings', () => {
+    return <ConfigurationSettingsLayout config={FakeConfig} onChange={console.log} />
+  })
   .add('Configuration Lists', () => {
     return (
       <ConfigurationListLayout
@@ -44,10 +48,6 @@ storiesOf('Layouts', module)
     )
   })
 
-  .add('AppLock Component', () => {
-    return <AppLockComponentLayout />
-  })
-
-  .add('Camouflage', () => {
-    return <CamouflageLayout />
+  .add('Create Config Popup', () => {
+    return <CreateConfigPopup onCreate={() => undefined} />
   })

@@ -27,6 +27,7 @@ module.exports = {
         25: '#f1f1f1',
         50: '#f5f5f5',
         100: '#d9d9d9',
+        200: '#e5e5e5',
         300: '#8b8e8f',
         500: '#5f6368',
         700: '#404040',
@@ -38,10 +39,24 @@ module.exports = {
       lg: ['16px', '24px'],
       xl: ['20px', '28px'],
       xxl: ['3rem', '4rem'],
+      xxxl: ['24px', '32px'],
+    },
+    fontWeight: {
+      ...defaultTheme.fontWeight,
+      extrablack: 1000,
     },
     boxShadow: {
       ...defaultTheme.boxShadow,
       inbox: 'inset -3px 2px 2px rgba(0, 0, 0, 0.15), inset 2px -2px 2px rgba(0, 0, 0, 0.15)',
+    },
+    spacing: {
+      ...defaultTheme.spacing,
+      xxxsm: '5px',
+      xsm: '15px',
+      sm: '20px',
+      md: '30px',
+      xxl: '60px',
+      xxxxl: '80px',
     },
     extend: {
       fontFamily: {

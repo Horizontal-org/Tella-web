@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { FunctionComponent, useState } from 'react'
-import { MdClose } from '@react-icons/all-files/md/MdClose'
 import cn from 'classnames'
 import { MdInfoOutline } from '@react-icons/all-files/md/MdInfoOutline'
 import { MdSave } from '@react-icons/all-files/md/MdSave'
@@ -16,6 +15,10 @@ import { SliderControl } from '../../components/Slider/SliderControl'
 import { ButtonMenu } from '../../components/ButtonMenu/ButtonMenu'
 import { ButtonOption } from '../../components/ButtonMenu/ButtonOption'
 import { ReportFile } from '../../domain/ReportFile'
+import { TopBar } from '../../components/TopBar/TopBar'
+import { ToggleButtonsBar } from '../../components/ToggleButtonsBar/ToggleButtonsBar'
+import { MainContent } from '../../components/MainContent/MainContent'
+import { LeftCollapsingSidebar } from '../../components/CollapsingSidebar/LeftCollapsingSidebar'
 
 type Props = {
   report: Report
@@ -23,7 +26,7 @@ type Props = {
   onClose: () => void
 }
 
-export const ReportDetailsLayout: FunctionComponent<Props> = ({ report, onDelete, onClose }) => {
+export const ReportDetailsLayout: FunctionComponent<Props> = ({ report, onDelete }) => {
   const [leftSidebarOpen, changeLeftSidebarOpneStatus] = useState(true)
   const [rightSidebarOpen, changeRightSidebarOpneStatus] = useState(true)
 
@@ -50,21 +53,14 @@ export const ReportDetailsLayout: FunctionComponent<Props> = ({ report, onDelete
 
   return (
     <div className="flex flex-grow min-h-screen">
-      <div
-        className={cn(
-          'w-64 border-r px-6 pt-20 border-gray-100 transition-all transform duration-300 h-screen overflow-y-scroll fixed left-0 top-0',
-          {
-            '-translate-x-64': !leftSidebarOpen,
-          }
-        )}
-      >
+      <LeftCollapsingSidebar collapsed={!leftSidebarOpen}>
         <ReportInformation report={report} />
         <div className="grid grid-cols-2 gap-2 mt-6">
           {report.files.map((file) => (
             <Thumbnail file={file} key={file.src.toString()} />
           ))}
         </div>
-      </div>
+      </LeftCollapsingSidebar>
 
       <div
         className={cn('flex flex-col flex-1 pt-20 transition-all duration-300 ease-in-out', {
@@ -72,46 +68,28 @@ export const ReportDetailsLayout: FunctionComponent<Props> = ({ report, onDelete
           'transform mr-64': rightSidebarOpen,
         })}
       >
-        <div id="slider-bar" className="flex px-4">
-          <div>
-            <img
-              src="/images/handbar-toggle.png"
-              alt="Toggle left sidebar"
-              className="cursor-pointer border-r my-2 py-1 pr-3"
-              onClick={toggleLeftSideBar}
-            />
+        <ToggleButtonsBar leftToggle={toggleLeftSideBar} rightToggle={toggleRightSideBar}>
+          <div className="flex-1 flex space-x-2 mb-2 px-4 py-2">
+            <Button type={btnType.Secondary} icon={<MdInfoOutline />} text="File Information" />
+            <Button type={btnType.Secondary} icon={<MdSave />} text="Download file" />
+            <Button type={btnType.Secondary} text="..." />
           </div>
+          <div className="flex space-x-4 mb-2 px-4 py-2 items-center">
+            <Button type={btnType.Secondary} icon={<BsArrowsAngleExpand />} />
+            <div className="w-24">
+              <SliderControl
+                goNext={goNext}
+                goPrev={goPrev}
+                current={current}
+                total={report.files.length}
+              />
+            </div>
+          </div>
+        </ToggleButtonsBar>
 
-          <div className="flex-1 flex justify-between">
-            <div className="flex-1 flex space-x-2 mb-2 px-4 py-2">
-              <Button type={btnType.Secondary} icon={<MdInfoOutline />} text="File Information" />
-              <Button type={btnType.Secondary} icon={<MdSave />} text="Download file" />
-              <Button type={btnType.Secondary} text="..." />
-            </div>
-            <div className="flex space-x-4 mb-2 px-4 py-2 items-center">
-              <Button type={btnType.Secondary} icon={<BsArrowsAngleExpand />} />
-              <div className="w-24">
-                <SliderControl
-                  goNext={goNext}
-                  goPrev={goPrev}
-                  current={current}
-                  total={report.files.length}
-                />
-              </div>
-            </div>
-          </div>
-          <div>
-            <img
-              src="/images/handbar-toggle.png"
-              alt="Toggle right sidebar"
-              className="cursor-pointer transform rotate-180 border-r my-2 py-1 pr-3"
-              onClick={toggleRightSideBar}
-            />
-          </div>
-        </div>
-        <div id="content" className="px-20 py-16 flex-1 flex">
+        <MainContent>
           <Thumbnail file={report.files[current - 1]} full />
-        </div>
+        </MainContent>
       </div>
       <div
         className={cn(
@@ -122,25 +100,17 @@ export const ReportDetailsLayout: FunctionComponent<Props> = ({ report, onDelete
         )}
       />
 
-      <div className="px-8 py-5 w-full border-b border-gray-100 flex font-xl items-center justify-items-start fixed top-0 right-0 bg-white justify-between">
-        <div className="flex items-center">
-          <button type="button">
-            <MdClose className="text-gray-300" />
-          </button>
-          <h2 className="text-gray-500 font-bold px-4">{report.name}</h2>
-        </div>
-        <div className="flex space-x-2">
-          <ButtonMenu openSide="left">
-            <ButtonOption
-              icon={<MdDelete />}
-              text="Delete"
-              color="#D6933B"
-              onClick={() => onDelete(report, report.files[current])}
-            />
-          </ButtonMenu>
-          <Button icon={<MdRemoveRedEye />} text="Preview" />
-        </div>
-      </div>
+      <TopBar title={report.name}>
+        <ButtonMenu openSide="left">
+          <ButtonOption
+            icon={<MdDelete />}
+            text="Delete"
+            color="#D6933B"
+            onClick={() => onDelete(report, report.files[current])}
+          />
+        </ButtonMenu>
+        <Button icon={<MdRemoveRedEye />} text="Preview" />
+      </TopBar>
     </div>
   )
 }

@@ -1,6 +1,4 @@
 import { FunctionComponent, useState } from 'react'
-import { MdNavigateBefore } from '@react-icons/all-files/md/MdNavigateBefore'
-import { MdNavigateNext } from '@react-icons/all-files/md/MdNavigateNext'
 import { SliderControl } from './SliderControl'
 
 type Props = {
